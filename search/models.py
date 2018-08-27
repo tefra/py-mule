@@ -6,6 +6,8 @@ from attr import attrib, attrs
 
 from mule.converters import upper
 from mule.models import BaseModel
+from seeya.models import SearchQueryLeg, SearchQueryExcludedCarriers, \
+    SearchQueryPassenger, Metadata, SearchQuery, SeeyaSearchRequest
 
 
 def validate_iso_date(_, attr, value):
@@ -47,3 +49,46 @@ class SearchRequest(BaseModel):
     currency: str
     market: str
     directRoutes: bool = attrib(default=False)
+
+
+class SearchRequestMapper:
+    Passengers = List[PassengerRequest]
+    SeeyaPassengers = List[SearchQueryPassenger]
+    Routes = List[RouteRequest]
+    SeeyaLegs = List[SearchQueryLeg]
+
+    @classmethod
+    def to_seeya(cls, request: SearchRequest) -> SeeyaSearchRequest:
+        return SeeyaSearchRequest(
+            searchQuery=SearchQuery(
+                direct=request.directRoutes,
+                preferredCarrier=request.carrier,
+                currency=request.currency,
+                recommendedCabinClass=request.cabinClass,
+                legs=cls.convert_routes(request.routes),
+                passengers=cls.convert_passengers(request.passengers)
+            ),
+            metadata=Metadata(market=request.market, locale=request.locale)
+        )
+
+    @classmethod
+    def convert_passengers(cls, passengers: Passengers) -> SeeyaPassengers:
+        def create_passenger(x: PassengerRequest) -> SearchQueryPassenger:
+            return SearchQueryPassenger(
+                count=x.count,
+                type=x.type.name
+            )
+
+        return [create_passenger(passenger) for passenger in passengers]
+
+    @classmethod
+    def convert_routes(cls, routes: Routes) -> SeeyaLegs:
+        def create_leg(x: RouteRequest) -> SearchQueryLeg:
+            return SearchQueryLeg(
+                dep=x.departure,
+                arr=x.arrival,
+                date=x.datetime.replace('T', ' '),
+                excludedCarriers=SearchQueryExcludedCarriers()
+            )
+
+        return [create_leg(route) for route in routes]

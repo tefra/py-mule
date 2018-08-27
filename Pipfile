@@ -4,11 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [dev-packages]
+coverage = "*"
 
 [packages]
 django = "*"
 cattrs = "*"
 "python3-gearman" = "*"
+rx = {git = "https://github.com/ReactiveX/RxPY.git"}
 
 [requires]
 python_version = "3.6"
