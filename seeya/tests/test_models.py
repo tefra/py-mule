@@ -9,6 +9,5 @@ class SeeyaSearchReponseTest(TestCase):
     def test_deserialization(self):
         original = self.resource(__name__, 'fixtures/search.json')
         deserialized = self.resource(__name__, 'fixtures/search_ds.json')
-
-        response: SeeyaSearchReponse = SeeyaSearchReponse.from_json(original)
+        response = SeeyaSearchReponse.from_json(original)
         self.assertJSONEqual(deserialized, response.to_json())

@@ -29,8 +29,7 @@
             "depDatetime": "2018-09-09 14:30:00",
             "arrDatetime": "2018-09-09 13:00:00"
           }
-        ],
-        "metadata": {}
+        ]
       },
       "3ca973da6a0294e623b89064b488c590": {
         "dep": {
@@ -50,8 +49,7 @@
         "elapsedFlyingTime": 405,
         "operatingCarrier": "QR",
         "flightNumber": "6",
-        "technicalStop": [],
-        "metadata": {}
+        "technicalStop": []
       }
     },
     "recommendations": [
@@ -69,12 +67,7 @@
                 "bookingClass": "V",
                 "refundable": false,
                 "numberOfSeats": 10,
-                "cabin": "Y",
-                "baggage": {
-                  "measureUnit": "K",
-                  "maxWeight": 23,
-                  "quantity": 1
-                }
+                "cabin": "Y"
               },
               "826b4b6e2144ead265057e81d7d29571": {
                 "lastTicketingDatetime": null,
@@ -82,12 +75,7 @@
                 "bookingClass": "V",
                 "refundable": false,
                 "numberOfSeats": 10,
-                "cabin": "Y",
-                "baggage": {
-                  "measureUnit": "K",
-                  "maxWeight": 23,
-                  "quantity": 1
-                }
+                "cabin": "Y"
               }
             },
             "baseFare": {
@@ -130,8 +118,7 @@
             "currency": "EUR",
             "amount": 422.0
           },
-          "obFees": {},
-          "ancillaryServices": []
+          "obFees": {}
         },
         "deepLink": "http://dl.travelgenio.com/Results.aspx?CH=0&AD=1&RetDate=08-09-2018&Dest=SYD&Country=GR&Brand=TG&Extradata=True&DepDate=08-09-2018&DirectOnly=False&IncludeOptionCode=True&LowCost=True&OW=True&Partner=6aH7Qm2GR&INF=0&Class=Y&Orig=LON&OptionCode=9@Efw@!@Tv@9CSV@Tv@4mtn@6DQY@2@0@!hu@3@.@2TVD@3@4tp@5mK@_@R@V@=@5l@!@5@9JEAH@1@8jy@2@5B@9BQ@5@2@!@_@O@R6YFH@1n@C@=@L@O@N7@Y@D@0@8jx@0@0BTFY@0",
         "connectionData": null

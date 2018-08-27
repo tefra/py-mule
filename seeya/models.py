@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Optional, Any
 
 from attr import attrib, attrs
 
@@ -104,7 +104,6 @@ class Segment(BaseModel):
     operatingCarrier: str
     flightNumber: str
     technicalStop: List[SegmentTechnicalStop]
-    metadata: Any
 
 
 @attrs(frozen=True, auto_attribs=True)
@@ -120,7 +119,6 @@ class FareData(BaseModel):
     taxes: Price
     baseFare: Price
     obFees: Dict[str, float]
-    ancillaryServices: Any
 
 
 @attrs(frozen=True, auto_attribs=True)
@@ -131,10 +129,6 @@ class PaxFareData(BaseModel):
     refundable: bool
     numberOfSeats: int
     cabin: str
-    baggage: Any
-    fareRefKey: Any = attrib(default=None)
-    fareRuleKey: Any = attrib(default=None)
-    providerCode: Any = attrib(default=None)
 
 
 @attrs(frozen=True, auto_attribs=True)
@@ -147,7 +141,7 @@ class PricePerPaxType(BaseModel):
 
 @attrs(frozen=True, auto_attribs=True)
 class ConnectionData(BaseModel):
-    lapsedFlyingTimes: List[int]
+    elapsedFlyingTimes: List[int]
     connectionIDs: List[str]
 
 
