@@ -12,3 +12,4 @@ docs/_build/
 htmlcov
 .idea
 db.sqlite3
+seeya/data/logs/*
