@@ -20,7 +20,7 @@ class SearchService(object):
     @property
     def providers(self):
         return [
-            'petas'
+            'petas', 'figame', 'kiwi', 'travel2be', 'travelgenio'
         ]
 
     def perform(self, request: SearchRequest):

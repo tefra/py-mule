@@ -20,7 +20,7 @@ def async(request: WSGIRequest):
     def response():
         search = SearchService()
         for message in search.perform(search_request):
-            yield "event: message\ndata: {}\n\n".format(message)
+            yield "event: message\ndata: {}\n\n".format(message.to_json(indent=None))
 
     response = http.StreamingHttpResponse(
         response(), content_type='text/event-stream'
