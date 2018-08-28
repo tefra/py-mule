@@ -7,7 +7,7 @@ from os.path import isdir
 from pkg_resources import resource_filename
 from python3_gearman import GearmanClient
 
-from mule.models import BaseModel
+from mule.models import Serializable
 from seeya.models import SeeyaRequest
 
 logger = logging.getLogger(__name__)
@@ -17,7 +17,7 @@ class Client:
     QUEUE = 'seeya_webservice'
 
     @classmethod
-    def send(cls, request: SeeyaRequest, clazz: BaseModel.__class__):
+    def send(cls, request: SeeyaRequest, clazz: Serializable.__class__):
         try:
             client = GearmanClient(['localhost:4730'])
             workload = request.to_json()

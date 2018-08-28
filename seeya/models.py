@@ -1,85 +1,82 @@
 from abc import ABCMeta, abstractmethod
-from typing import List, Dict, Optional, Any
+from enum import unique, Enum
+from typing import List, Dict, Optional
 
 from attr import attrib, attrs
 
 from mule.converters import xstr
-from mule.models import BaseModel
+from mule.models import Serializable, CustomSerialization
 
 
 @attrs(frozen=True, auto_attribs=True)
-class SearchQueryExcludedCarriers(BaseModel):
+class SeeyaExcludedCarriers(Serializable):
     marketing: List[str] = attrib(factory=list)
     operating: List[str] = attrib(factory=list)
     validating: List[str] = attrib(factory=list)
 
 
 @attrs(frozen=True, auto_attribs=True)
-class SearchQueryLeg(BaseModel):
+class SeeyaLeg(Serializable):
     dep: str
     arr: str
     date: str
-    excludedCarriers: SearchQueryExcludedCarriers
+    excludedCarriers: SeeyaExcludedCarriers
     depRadius: dict = attrib(factory=dict)
     arrRadius: dict = attrib(factory=dict)
     forceIncludedCarriers: list = attrib(factory=list)
 
 
 @attrs(frozen=True, auto_attribs=True)
-class SearchQueryPassenger(BaseModel):
+class SeeyaPassenger(Serializable):
     count: int
     type: str
 
 
 @attrs(frozen=True, auto_attribs=True)
-class SearchQuery(BaseModel):
+class SeeyaSearchQuery(Serializable):
     direct: bool
     preferredCarrier: str
     currency: str
     recommendedCabinClass: str
-    legs: List[SearchQueryLeg]
-    passengers: List[SearchQueryPassenger]
+    legs: List[SeeyaLeg]
+    passengers: List[SeeyaPassenger]
     pccs: list = attrib(factory=list)
     maxRecommendations: int = attrib(default=200)
 
 
 @attrs(frozen=True, auto_attribs=True)
-class Metadata(BaseModel):
+class SeeyaMetadata(Serializable):
     market: str
     locale: str
 
 
-@attrs(frozen=True)
-class SeeyaRequest(BaseModel, metaclass=ABCMeta):
-    metadata: Metadata = attrib()
+@attrs(auto_attribs=True, frozen=False)
+class SeeyaRequest(Serializable, metaclass=ABCMeta):
+    metadata: SeeyaMetadata
     transactionId: str = attrib(default=None, converter=xstr)
     pcc: str = attrib(default=None)
+    method: str = attrib(default=None)
+
+    @property
+    def provider(self):
+        return 'foobar'
+
+    @provider.setter
+    def provider(self, provider: str):
+        self.method = 'flights.{}.search'.format(provider)
+
+
+@attrs(auto_attribs=True)
+class SeeyaSearchRequest(SeeyaRequest):
+    searchQuery: SeeyaSearchQuery = attrib(default=None)
     method: str = attrib(
         default=None,
         converter=lambda x: 'flights.{}.search'.format(x)
     )
 
-    @property
-    def provider(self):
-        return self.method.split('.')[1]
-
-    @property
-    @abstractmethod
-    def type(self):
-        pass
-
 
 @attrs(frozen=True, auto_attribs=True)
-class SeeyaSearchRequest(SeeyaRequest):
-    searchQuery: SearchQuery = attrib(default=None)  # kw_only coming soon
-
-    @property
-    def type(self):
-        return 'search'
-
-
-@attrs(frozen=True, auto_attribs=True)
-class SegmentTechnicalStop(BaseModel):
+class SeeyaTechnicalStop(Serializable):
     destination: str
     duration: int
     depDatetime: str
@@ -87,42 +84,40 @@ class SegmentTechnicalStop(BaseModel):
 
 
 @attrs(frozen=True, auto_attribs=True)
-class SegmentPoint(BaseModel):
-    terminal: Optional[str]
+class SeeyaSegmentPoint(Serializable):
     airport: str
-    gmtOffset: Optional[str]
     datetime: str
 
 
 @attrs(frozen=True, auto_attribs=True)
-class Segment(BaseModel):
-    dep: SegmentPoint
-    arr: SegmentPoint
+class SeeyaSegment(Serializable):
+    dep: SeeyaSegmentPoint
+    arr: SeeyaSegmentPoint
     marketingCarrier: str
     flightEquipment: str
     elapsedFlyingTime: int
     operatingCarrier: str
     flightNumber: str
-    technicalStop: List[SegmentTechnicalStop]
+    technicalStop: List[SeeyaTechnicalStop]
 
 
 @attrs(frozen=True, auto_attribs=True)
-class Price(BaseModel):
+class SeeyaPrice(Serializable):
     currency: str
     amount: float
 
 
 @attrs(frozen=True, auto_attribs=True)
-class FareData(BaseModel):
+class SeeyaFareData(Serializable):
     proposedValidatingCarriers: List[str]
-    totalPrice: Price
-    taxes: Price
-    baseFare: Price
+    totalPrice: SeeyaPrice
+    taxes: SeeyaPrice
+    baseFare: SeeyaPrice
     obFees: Dict[str, float]
 
 
 @attrs(frozen=True, auto_attribs=True)
-class PaxFareData(BaseModel):
+class SeeyaPaxFareData(Serializable):
     lastTicketingDatetime: Optional[str]
     fareBasis: str
     bookingClass: str
@@ -132,49 +127,52 @@ class PaxFareData(BaseModel):
 
 
 @attrs(frozen=True, auto_attribs=True)
-class PricePerPaxType(BaseModel):
-    totalPrice: Price
-    fareData: Dict[str, PaxFareData]
-    baseFare: Price
-    taxes: Price
+class SeeyaPricePerPaxType(Serializable):
+    totalPrice: SeeyaPrice
+    baseFare: SeeyaPrice
+    taxes: SeeyaPrice
+    fareData: Dict[str, SeeyaPaxFareData]
+
+
+
+@unique
+class SeeyaPassengerType(Enum):
+    adults = 'ADT'
+    children = 'CHD'
+    infants = 'INF'
 
 
 @attrs(frozen=True, auto_attribs=True)
-class ConnectionData(BaseModel):
-    elapsedFlyingTimes: List[int]
-    connectionIDs: List[str]
+class SeeyaSegmentReferences(CustomSerialization):
+    data: List[List[str]]
+
+    def __iter__(self):
+        for elem in self.data:
+            yield elem
+
+    @classmethod
+    def deserialize(cls, data):
+        return cls(data=list(map(lambda d: [ref for ref, _ in d], data)))
 
 
 @attrs(frozen=True, auto_attribs=True)
-class SegmentReference(BaseModel):
-    uniqueId: str
-    connectionIndicator: bool
-
-
-def map_seg_refs(data):
-    return list(map(lambda d: [SegmentReference(x, y) for x, y in d], data))
-
-
-@attrs(frozen=True, auto_attribs=True)
-class Recommendation(BaseModel):
-    pricePerPaxType: Dict[str, PricePerPaxType]
-    segRefs: List[List[Any]] = attrib(converter=map_seg_refs)
+class SeeyaRecommendation(Serializable):
+    pricePerPaxType: Dict[SeeyaPassengerType, SeeyaPricePerPaxType]
+    segRefs: SeeyaSegmentReferences
     gds: str
-    fareData: FareData
+    fareData: SeeyaFareData
     deepLink: str
-    connectionData: ConnectionData = attrib(default=None)
 
 
 @attrs(frozen=True, auto_attribs=True)
-class SearchResult(BaseModel):
+class SeeyaSearchResult(Serializable):
     transactionId: str
-    method: str
-    groupOfSegments: Dict[str, Segment]
-    recommendations: List[Recommendation]
+    groupOfSegments: Dict[str, SeeyaSegment]
+    recommendations: List[SeeyaRecommendation]
 
 
 @attrs(frozen=True, auto_attribs=True, slots=True)
-class SeeyaSearchReponse(BaseModel):
+class SeeyaSearchResponse(Serializable):
     transactionId: str
-    result: Optional[SearchResult]
+    result: Optional[SeeyaSearchResult]
     error: Optional[str]

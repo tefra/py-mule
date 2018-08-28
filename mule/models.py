@@ -1,15 +1,22 @@
-from typing import Dict, TypeVar
+from abc import abstractmethod, ABCMeta, abstractclassmethod, abstractproperty
+from json import loads, dumps
+from typing import Dict, TypeVar, Any
 
 import cattr
 from attr import evolve
 from cattr import unstructure, structure
-from json import loads, dumps
 
 T = TypeVar('T', bound='BaseModel')
 
 
-class BaseModel:
+class BaseMapper(metaclass=ABCMeta):
 
+    @classmethod
+    def map(cls, value, *args, **kwargs) -> Any:
+        return cls.func(value, *args, **kwargs)
+
+
+class BaseModel(metaclass=ABCMeta):
     def to_dict(self: T) -> Dict:
         return unstructure(self)
 
@@ -27,11 +34,22 @@ class BaseModel:
         if isinstance(data, list) and len(data) == 1:
             data = data[0]
 
-        return cls.from_dict(data)
+        return cls.deserialize(data)
+
+    @abstractclassmethod
+    def deserialize(cls, data):
+        pass
+
+
+class Serializable(BaseModel):
 
     @classmethod
-    def from_dict(cls: T, data: dict) -> T:
+    def deserialize(cls: T, data: dict) -> T:
         return structure(data, cls)
+
+
+class CustomSerialization(BaseModel, metaclass=ABCMeta):
+    pass
 
 
 def structure_attrs_fromdict(obj, cl):
@@ -61,4 +79,6 @@ def structure_attrs_fromdict(obj, cl):
     return cl(**conv_obj)
 
 
-cattr.register_structure_hook(BaseModel, structure_attrs_fromdict)
+cattr.register_structure_hook(Serializable, structure_attrs_fromdict)
+cattr.register_structure_hook(CustomSerialization,
+                              lambda d, t: t.deserialize(d))

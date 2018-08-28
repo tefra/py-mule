@@ -87,8 +87,7 @@ function search(id) {
     source.addEventListener('message', function (event) {
         console.log(event);
         var obj = jQuery.parseJSON(event.data);
-
-        // parse_response(obj)
+        parse_response(obj)
     });
 
     source.addEventListener('stop', function (event) {
