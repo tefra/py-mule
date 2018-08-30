@@ -38,4 +38,10 @@ def index(request: WSGIRequest):
         except ValueError as e:
             return http.HttpResponseBadRequest(str(e))
 
-    return render(request, 'index.html')
+    data = {
+        'currencies': ['EUR', 'USD', 'GBP'],
+        'locales': ['el_GR', 'en_US', 'en_GB'],
+        'markets': ['gr', 'us', 'uk'],
+    }
+
+    return render(request, 'index.html', data)
