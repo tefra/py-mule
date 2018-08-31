@@ -1,26 +1,18 @@
+from unittest.mock import patch, call
+
 from attr import attrs, attrib
 
 from mule.models import Serializable
 from mule.testcases import TestCase
-from search.mappers import SeeyaSearchRequestMapper, to_seeya, from_seeya, \
-    SearchResponseMapper
-from search.models import SearchRequest, RouteRequest, PassengerRequest, \
-    PassengerType, Leg
-from seeya.models import SeeyaSearchResponse, SeeyaSearchResult, SeeyaSegment, \
-    SeeyaSegmentPoint, SeeyaTechnicalStop, SeeyaPricePerPaxType, SeeyaPrice, \
-    SeeyaPassengerType, SeeyaSegmentReferences, SeeyaRecommendation
-
-
-@from_seeya.register(str)
-@to_seeya.register(str)
-def _(value: str, **kwargs) -> str:
-    return ''.join(kwargs.keys()) + '@' + value
-
-
-@from_seeya.register(int)
-@to_seeya.register(int)
-def _(value: int, **kwargs) -> int:
-    return str(value)
+from search.mappers import SeeyaSearchRequestMapper, SearchResponseMapper
+from search.models import (
+    SearchRequest, RouteRequest, PassengerRequest, PassengerType, Leg,
+    SearchResponseData)
+from seeya.models import (
+    SeeyaSearchResponse, SeeyaSearchResult, SeeyaSegment,
+    SeeyaSegmentPoint, SeeyaTechnicalStop, SeeyaPricePerPaxType, SeeyaPrice,
+    SeeyaPassengerType, SeeyaSegmentReferences,
+    SeeyaRecommendation)
 
 
 @attrs(auto_attribs=True)
@@ -40,19 +32,20 @@ class FooSegment(Serializable):
 
 
 class SeeyaSearchRequestMapperTestCase(TestCase):
-    mapper = SeeyaSearchRequestMapper
 
-    def test_map_list(self):
-        actual = self.mapper.map([1, 2, 3])
-        self.assertEqual(['1', '2', '3'], actual)
+    def setUp(self):
+        self.maxDiff = None
+        self.mapper = SeeyaSearchRequestMapper()
 
-    def test_map_str(self):
-        self.assertEqual('@foo', self.mapper.map('foo'))
+    @patch.object(SeeyaSearchRequestMapper, 'map_routes')
+    @patch.object(SeeyaSearchRequestMapper, 'map_passengers')
+    def test_map(self, map_passengers, map_routes):
+        map_routes.return_value = 'bar'
+        map_passengers.return_value = 'foo'
 
-    def test_map_search_request(self):
         actual = self.mapper.map(SearchRequest(
-            routes=['route1', 'route2'],
-            passengers=['paxA', 'paxB'],
+            routes='bar',
+            passengers='foo',
             cabinClass='A',
             carrier='AB',
             flexibleDates=True,
@@ -69,9 +62,9 @@ class SeeyaSearchRequestMapperTestCase(TestCase):
             'searchQuery': {
                 'currency': 'USD',
                 'direct': False,
-                'legs': ['@route1', '@route2'],
+                'legs': 'bar',
                 'maxRecommendations': 200,
-                'passengers': ['@paxA', '@paxB'],
+                'passengers': 'foo',
                 'pccs': [],
                 'preferredCarrier': 'AB',
                 'recommendedCabinClass': 'A'
@@ -83,8 +76,13 @@ class SeeyaSearchRequestMapperTestCase(TestCase):
         actual.provider = 'foobar'
         self.assertEqual('flights.foobar.search', actual.method)
 
-    def test_map_route_request(self):
-        actual = self.mapper.map(RouteRequest(
+    @patch.object(SeeyaSearchRequestMapper, 'map_route')
+    def test_map_routes(self, map_route):
+        map_route.side_effect = ['a', 'b', 'c']
+        self.assertEqual(['a', 'b', 'c'], self.mapper.map_routes([1, 2, 3]))
+
+    def test_map_route(self):
+        actual = self.mapper.map_route(RouteRequest(
             departure='ATH',
             arrival='SKG',
             datetime='2018-12-31T12:12:06'
@@ -103,8 +101,13 @@ class SeeyaSearchRequestMapperTestCase(TestCase):
         }
         self.assertEqual(expected, actual.to_dict())
 
-    def test_map_passenger_request(self):
-        actual = self.mapper.map(PassengerRequest(
+    @patch.object(SeeyaSearchRequestMapper, 'map_passenger')
+    def test_map_passengers(self, map_passenger):
+        map_passenger.side_effect = ['a', 'b', 'c']
+        self.assertEqual(['a', 'b', 'c'], self.mapper.map_passengers([1, 2, 3]))
+
+    def test_map_passenger(self):
+        actual = self.mapper.map_passenger(PassengerRequest(
             count=2, type=PassengerType.CHD
         ))
 
@@ -113,36 +116,34 @@ class SeeyaSearchRequestMapperTestCase(TestCase):
 
 
 class SearchResponseMapperTestCase(TestCase):
-    mapper = SearchResponseMapper
 
-    def test_map_list(self):
-        actual = self.mapper.map([1, 2, 3])
-        self.assertEqual(['1', '2', '3'], actual)
+    def setUp(self):
+        self.maxDiff = None
+        self.mapper = SearchResponseMapper()
 
-    def test_map_str(self):
-        self.assertEqual('@foo', self.mapper.map('foo'))
+    @patch.object(SearchResponseMapper, 'map_recommendations')
+    @patch.object(SearchResponseMapper, 'map_segments')
+    def test_map(self, map_segments, map_recommendations):
+        map_segments.return_value = 'bar'
+        map_recommendations.return_value = 'foo'
 
-    def test_map_dict(self):
-        actual = self.mapper.map({'a': '1', 'b': '2'})
-        self.assertEqual({'@a': '@1', '@b': '@2'}, actual)
-
-    def test_map_str(self):
-        self.assertEqual('@foo', self.mapper.map('foo'))
-
-    def test_map_seeya_search_response(self):
         actual = self.mapper.map(SeeyaSearchResponse(
             transactionId='foo',
+            error=None,
             result=SeeyaSearchResult(
                 transactionId='bar',
-                groupOfSegments={'a': '1', 'b': '2'},
-                recommendations=['fareA', 'fareB']),
-            error=None
+                groupOfSegments='foo',
+                recommendations='bar',
+            )
         ))
 
-        expected = {'data': ['segments@fareA', 'segments@fareB'], 'error': None}
+        expected = {'data': 'foo', 'error': None}
         self.assertEqual(expected, actual.to_dict())
 
-    def test_map_seeya_search_response_with_error(self):
+        map_segments.assert_called_once_with('foo')
+        map_recommendations.assert_called_once_with('bar')
+
+    def test_map_with_error(self):
         actual = self.mapper.map(SeeyaSearchResponse(
             transactionId='foo',
             result=['resultA', 'resultB'],
@@ -152,8 +153,57 @@ class SearchResponseMapperTestCase(TestCase):
         expected = {'data': [], 'error': 'damn'}
         self.assertEqual(expected, actual.to_dict())
 
-    def test_map_seeya_segment(self):
-        actual = self.mapper.map(SeeyaSegment(
+    @patch.object(SearchResponseData, 'generate_resources')
+    @patch.object(SearchResponseData, 'generate_group_id')
+    @patch.object(SearchResponseMapper, 'map_passengers')
+    @patch.object(SearchResponseMapper, 'map_legs')
+    def test_map_recommendation(self, map_legs, map_passengers, id, resources):
+        id.return_value = '$id'
+        resources.return_value = '$resources'
+
+        map_legs.return_value = ['legs']
+        map_passengers.return_value = ['paxes']
+
+        @attrs(auto_attribs=True)
+        class FooPrice:
+            fareData: int
+
+        prices = {
+            SeeyaPassengerType.adults: FooPrice(2)
+        }
+
+        actual = self.mapper.map_recommendation(SeeyaRecommendation(
+            gds='kiwi',
+            deepLink='google.com',
+            segRefs=['a', 'b'],
+            pricePerPaxType=prices,
+            fareData=None
+        ))
+
+        expected = {
+            'groupId': '$id',
+            'id': None,
+            'legs': ['legs'],
+            'passengers': ['paxes'],
+            'provider': {
+                'name': 'kiwi', 'presentationName': 'kiwi', 'uri': 'google.com'
+            },
+            'resources': '$resources'
+        }
+        self.assertEqual(expected, actual.to_dict())
+
+    @patch.object(SearchResponseMapper, 'map_segment')
+    def test_map_routes(self, map_segment):
+        map_segment.side_effect = ['a', 'b', 'c']
+        self.assertEqual(['a', 'b', 'c'], self.mapper.map_segments([1, 2, 3]))
+
+    @patch.object(SearchResponseMapper, 'map_technical_stops')
+    @patch.object(SearchResponseMapper, 'map_point')
+    def test_map_segment(self, map_point, map_stops):
+        map_point.side_effect = ['a', 'b']
+        map_stops.return_value = ['c']
+
+        actual = self.mapper.map_segment(SeeyaSegment(
             dep='fooDep',
             arr='fooArr',
             marketingCarrier='AB',
@@ -161,15 +211,12 @@ class SearchResponseMapperTestCase(TestCase):
             elapsedFlyingTime=60,
             flightEquipment='747',
             flightNumber='1003',
-            technicalStop=[1, 2]
+            technicalStop=[]
         ))
 
         expected = {
             'duration': 60,
-            'route': {
-                'arrival': '@fooArr', 'departure': '@fooDep',
-                'technicalStop': ['1', '2']
-            },
+            'route': {'arrival': 'b', 'departure': 'a', 'technicalStop': ['c']},
             'services': None,
             'transport': {
                 'carriers': {'marketing': 'AB', 'operating': 'BA'},
@@ -180,8 +227,8 @@ class SearchResponseMapperTestCase(TestCase):
         }
         self.assertEqual(expected, actual.to_dict())
 
-    def test_map_seeya_segment_point(self):
-        actual = self.mapper.map(SeeyaSegmentPoint(
+    def test_map_point(self):
+        actual = self.mapper.map_point(SeeyaSegmentPoint(
             airport='ATH',
             datetime='2018-12-12 15:30:00'
         ))
@@ -189,8 +236,13 @@ class SearchResponseMapperTestCase(TestCase):
         expected = {'datetime': '2018-12-12 15:30:00', 'location': 'ATH'}
         self.assertEqual(expected, actual.to_dict())
 
-    def test_map_seeya_technical_stop(self):
-        actual = self.mapper.map(SeeyaTechnicalStop(
+    @patch.object(SearchResponseMapper, 'map_technical_stop')
+    def test_map_routes(self, map_technical_stop):
+        map_technical_stop.side_effect = ['a', 'c']
+        self.assertEqual(['a', 'c'], self.mapper.map_technical_stops([1, 3]))
+
+    def test_map_technical_stop(self):
+        actual = self.mapper.map_technical_stop(SeeyaTechnicalStop(
             destination='ATH',
             duration=15,
             arrDatetime='2018-12-12 13:30:00',
@@ -205,8 +257,21 @@ class SearchResponseMapperTestCase(TestCase):
 
         self.assertEqual(expected, actual.to_dict())
 
-    def test_map_seeya_price_per_pax_type(self):
-        actual = self.mapper.map(SeeyaPricePerPaxType(
+    @patch.object(SearchResponseMapper, 'map_passenger')
+    def test_map_passengers(self, map_passenger):
+        map_passenger.side_effect = ['d', 'e', 'f']
+
+        segments = {
+            SeeyaPassengerType.adults: 'a',
+            SeeyaPassengerType.children: 'b',
+            SeeyaPassengerType.infants: 'c'
+        }
+        self.mapper.map_passengers(segments)
+
+        map_passenger.assert_has_calls([call('a'), call('b'), call('c')])
+
+    def test_map_passenger(self):
+        actual = self.mapper.map_passenger(SeeyaPricePerPaxType(
             totalPrice=SeeyaPrice(amount=100, currency='USD'),
             taxes=SeeyaPrice(amount=10, currency=''),
             baseFare=SeeyaPrice(amount=90, currency=''),
@@ -224,13 +289,7 @@ class SearchResponseMapperTestCase(TestCase):
         }
         self.assertEqual(expected, actual.to_dict())
 
-    def test_map_seeya_passenger_type(self):
-        types = SeeyaPassengerType
-        self.assertEqual('adults', self.mapper.map(types.adults))
-        self.assertEqual('children', self.mapper.map(types.children))
-        self.assertEqual('infants', self.mapper.map(types.infants))
-
-    def test_map_seeya_segment_references(self):
+    def test_map_legs(self):
         refs = SeeyaSegmentReferences.deserialize(
             [[('aaa', True)], [('bbb', False), ('ccc', True)]]
         )
@@ -241,13 +300,13 @@ class SearchResponseMapperTestCase(TestCase):
             ccc=FooFareData('C', 'C!')
         )
 
-        segments = dict(
+        self.mapper.segments = dict(
             aaa=FooSegment(),
             bbb=FooSegment(),
             ccc=FooSegment(),
         )
 
-        actual = self.mapper.map(refs, segments=segments, faredata=faredata)
+        actual = self.mapper.map_legs(refs, data=faredata)
         self.assertEqual(2, len(actual))
 
         first = {

@@ -1,11 +1,10 @@
-from functools import singledispatch
-from typing import Dict, Any
+from typing import Dict, List
 
-from mule.models import BaseMapper
 from search.models import (
-    SearchRequest, PassengerRequest, RouteRequest, SearchResponse, Segment,
+    PassengerRequest, RouteRequest, SearchResponse, Segment,
     Route, TechnicalStop, Point, Transport, Carrier, SearchResponseData,
-    Passenger, Price, Services, Leg, Provider
+    Passenger, Price, Services, Leg, Provider,
+    PassengerType
 )
 from seeya.models import (
     SeeyaSearchRequest, SeeyaLeg, SeeyaPassenger, SeeyaSearchQuery,
@@ -16,160 +15,156 @@ from seeya.models import (
 )
 
 
-@singledispatch
-def to_seeya(value):
-    return value
+class SeeyaSearchRequestMapper:
+    Passengers = List[PassengerRequest]
+    SeeyaPassengers = List[SeeyaPassenger]
 
+    def map(self, value: SearchResponse) -> SeeyaSearchResponse:
+        legs = self.map_routes(value.routes)
+        passengers = self.map_passengers(value.passengers)
 
-class SeeyaSearchRequestMapper(BaseMapper):
-    func = to_seeya
-
-
-@singledispatch
-def from_seeya(value):
-    return value
-
-
-class SearchResponseMapper(BaseMapper):
-    func = from_seeya
-
-
-@to_seeya.register(list)
-def _(value: list) -> list:
-    return list(map(to_seeya, value))
-
-
-@to_seeya.register(SearchRequest)
-def _(value: SearchRequest) -> SeeyaSearchRequest:
-    return SeeyaSearchRequest(
-        searchQuery=SeeyaSearchQuery(
-            direct=value.directRoutes,
-            preferredCarrier=value.carrier,
-            currency=value.currency,
-            recommendedCabinClass=value.cabinClass,
-            legs=to_seeya(value.routes),
-            passengers=to_seeya(value.passengers)
-        ),
-        metadata=SeeyaMetadata(market=value.market, locale=value.locale)
-    )
-
-
-@to_seeya.register(RouteRequest)
-def _(value: RouteRequest) -> SeeyaLeg:
-    return SeeyaLeg(
-        dep=value.departure,
-        arr=value.arrival,
-        date=value.datetime.replace('T', ' '),
-        excludedCarriers=SeeyaExcludedCarriers()
-    )
-
-
-@to_seeya.register(PassengerRequest)
-def _(value: PassengerRequest) -> SeeyaPassenger:
-    return SeeyaPassenger(
-        count=value.count,
-        type=value.type.name
-    )
-
-
-@from_seeya.register(list)
-def _(value: list, *args, **kwargs) -> list:
-    return list(map(lambda x: from_seeya(x, *args, **kwargs), value))
-
-
-@from_seeya.register(dict)
-def _(value: dict) -> dict:
-    return {from_seeya(k): from_seeya(v) for k, v in value.items()}
-
-
-@from_seeya.register(SeeyaSearchResponse)
-def _(value: SeeyaSearchResponse) -> SearchResponse:
-    data = []
-    error = value.error
-    if error is None:
-        segments = from_seeya(value.result.groupOfSegments)
-        data = from_seeya(value.result.recommendations, segments=segments)
-
-    return SearchResponse(data=data, error=error)
-
-
-@from_seeya.register(SeeyaRecommendation)
-def _(value: SeeyaRecommendation,
-      segments: Dict[str, Segment]) -> SearchResponseData:
-    faredata = value.pricePerPaxType.get(SeeyaPassengerType.adults).fareData
-    return SearchResponseData(
-        id=None,
-        provider=Provider(name=value.gds, uri=value.deepLink),
-        legs=from_seeya(value.segRefs, segments=segments, faredata=faredata),
-        passengers=from_seeya(value.pricePerPaxType)
-    )
-
-
-@from_seeya.register(SeeyaSegmentReferences)
-def _(value: SeeyaSegmentReferences, segments: Dict[str, Segment],
-      faredata: SeeyaPaxFareData) -> str:
-    def get_segment(ref):
-        return segments.get(ref).copy(services=Services(
-            cabinClass=faredata.get(ref).cabin,
-            bookingClass=faredata.get(ref).bookingClass
-        ))
-
-    def create_leg(refs):
-        segments = [get_segment(ref) for ref in refs]
-        return Leg(segments=segments)
-
-    return list(map(create_leg, value))
-
-
-@from_seeya.register(SeeyaPassengerType)
-def _(value: SeeyaPassengerType) -> str:
-    return value.name
-
-
-@from_seeya.register(SeeyaPricePerPaxType)
-def _(value: SeeyaPricePerPaxType) -> Passenger:
-    return Passenger(count=0, price=Price(
-        total=value.totalPrice.amount,
-        currency=value.totalPrice.currency,
-        tax=value.taxes.amount,
-        faceValue=value.baseFare.amount
-    ))
-
-
-@from_seeya.register(SeeyaSegment)
-def _(value: SeeyaSegment) -> Segment:
-    transport = Transport(
-        type='flights',
-        number=value.flightNumber,
-        equipment=value.flightEquipment,
-        carriers=Carrier(
-            marketing=value.marketingCarrier,
-            operating=value.operatingCarrier
+        return SeeyaSearchRequest(
+            searchQuery=SeeyaSearchQuery(
+                direct=value.directRoutes,
+                preferredCarrier=value.carrier,
+                currency=value.currency,
+                recommendedCabinClass=value.cabinClass,
+                legs=legs,
+                passengers=passengers
+            ),
+            metadata=SeeyaMetadata(market=value.market, locale=value.locale)
         )
-    )
 
-    route = Route(
-        departure=from_seeya(value.dep),
-        arrival=from_seeya(value.arr),
-        technicalStop=from_seeya(value.technicalStop)
-    )
+    def map_routes(self, value: List[RouteRequest]) -> List[SeeyaLeg]:
+        return list(map(lambda x: self.map_route(x), value))
 
-    return Segment(
-        transport=transport,
-        route=route,
-        duration=value.elapsedFlyingTime
-    )
+    def map_route(self, value: RouteRequest) -> SeeyaLeg:
+        return SeeyaLeg(
+            dep=value.departure,
+            arr=value.arrival,
+            date=value.datetime.replace('T', ' '),
+            excludedCarriers=SeeyaExcludedCarriers()
+        )
+
+    def map_passengers(self, value: Passengers) -> SeeyaPassengers:
+        return list(map(lambda x: self.map_passenger(x), value))
+
+    def map_passenger(self, value: PassengerRequest) -> SeeyaPassenger:
+        return SeeyaPassenger(count=value.count, type=value.type.name)
 
 
-@from_seeya.register(SeeyaSegmentPoint)
-def _(value: SeeyaSegmentPoint):
-    return Point(location=value.airport, datetime=value.datetime)
+class SearchResponseMapper:
+    Passengers = Dict[PassengerType, Passenger]
+    SeeyaPassengers = Dict[SeeyaPassengerType, SeeyaPricePerPaxType]
 
+    Segments = Dict[str, Segment]
+    SeeyaSegments = Dict[str, SeeyaSegment]
 
-@from_seeya.register(SeeyaTechnicalStop)
-def _(value: SeeyaTechnicalStop) -> TechnicalStop:
-    return TechnicalStop(
-        arrival=Point(location=value.destination, datetime=value.arrDatetime),
-        departure=Point(location=value.destination, datetime=value.depDatetime),
-        duration=value.duration
-    )
+    Recommendation = SeeyaRecommendation
+    Recommendations = List[Recommendation]
+    ResponseData = List[SearchResponseData]
+
+    SeeyaTechnicalStops = List[SeeyaTechnicalStop]
+    TechnicalStops = List[TechnicalStop]
+
+    SegRefs = SeeyaSegmentReferences
+
+    def __init__(self) -> None:
+        self.segments: Dict[str, Segment] = dict()
+
+    def map(self, value: SeeyaSearchResponse) -> SearchResponse:
+        data = []
+        error = value.error
+        if error is None:
+            self.segments = self.map_segments(value.result.groupOfSegments)
+            data = self.map_recommendations(value.result.recommendations)
+
+        return SearchResponse(data=data, error=error)
+
+    def map_recommendations(self, value: Recommendations) -> ResponseData:
+        return list(map(lambda x: self.map_recommendation(x), value))
+
+    def map_segments(self, value: SeeyaSegments) -> Segments:
+        return {k: self.map_segment(v) for k, v in value.items()}
+
+    @classmethod
+    def map_segment(cls, value: SeeyaSegment) -> Segment:
+        transport = Transport(
+            type='flights',
+            number=value.flightNumber,
+            equipment=value.flightEquipment,
+            carriers=Carrier(
+                marketing=value.marketingCarrier,
+                operating=value.operatingCarrier
+            )
+        )
+
+        route = Route(
+            departure=cls.map_point(value.dep),
+            arrival=cls.map_point(value.arr),
+            technicalStop=cls.map_technical_stops(value.technicalStop)
+        )
+
+        return Segment(
+            transport=transport,
+            route=route,
+            duration=value.elapsedFlyingTime
+        )
+
+    @classmethod
+    def map_point(cls, value: SeeyaSegmentPoint) -> Point:
+        return Point(location=value.airport, datetime=value.datetime)
+
+    def map_technical_stops(self, value: SeeyaTechnicalStops) -> TechnicalStops:
+        return list(map(lambda x: self.map_technical_stop(x), value))
+
+    @classmethod
+    def map_technical_stop(cls, value: SeeyaTechnicalStop) -> TechnicalStop:
+        return TechnicalStop(
+            arrival=Point(
+                location=value.destination, datetime=value.arrDatetime
+            ),
+            departure=Point(
+                location=value.destination, datetime=value.depDatetime
+            ),
+            duration=value.duration
+        )
+
+    def map_recommendation(self, value: Recommendation) -> SearchResponseData:
+        adults = value.pricePerPaxType.get(SeeyaPassengerType.adults)
+
+        return SearchResponseData(
+            id=None,
+            provider=Provider(name=value.gds, uri=value.deepLink),
+            legs=self.map_legs(value.segRefs, data=adults.fareData),
+            passengers=self.map_passengers(value.pricePerPaxType)
+        )
+
+    def map_legs(self, value: SegRefs, data: SeeyaPaxFareData) -> List[Leg]:
+        def get_segment(ref):
+            return self.segments.get(ref).copy(
+                services=Services(
+                    cabinClass=data.get(ref).cabin,
+                    bookingClass=data.get(ref).bookingClass
+                )
+            )
+
+        def create_leg(refs):
+            segments = [get_segment(ref) for ref in refs]
+            return Leg(segments=segments)
+
+        return list(map(create_leg, value))
+
+    def map_passengers(self, value: SeeyaPassengers) -> Passengers:
+        return {k.name: self.map_passenger(v) for k, v in value.items()}
+
+    def map_passenger(self, value: SeeyaPricePerPaxType) -> Passenger:
+        return Passenger(
+            count=0,
+            price=Price(
+                total=value.totalPrice.amount,
+                currency=value.totalPrice.currency,
+                tax=value.taxes.amount,
+                faceValue=value.baseFare.amount
+            )
+        )

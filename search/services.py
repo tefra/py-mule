@@ -6,7 +6,7 @@ from typing import Any
 from rx import Observable
 from rx.concurrency import ThreadPoolScheduler
 
-from search.mappers import to_seeya, from_seeya
+from search.mappers import SearchResponseMapper, SeeyaSearchRequestMapper
 from search.models import SearchRequest
 from seeya.models import SeeyaSearchRequest, SeeyaSearchResponse
 from seeya.services import Client
@@ -25,7 +25,7 @@ class SearchService(object):
         ]
 
     def perform(self, request: SearchRequest):
-        seeya_request = to_seeya(request)
+        seeya_request = SeeyaSearchRequestMapper().map(request)
         return Observable.from_iterable(self.providers) \
             .flat_map(lambda x: self.prepare(x, seeya_request)) \
             .to_blocking() \
@@ -38,4 +38,4 @@ class SearchService(object):
     @classmethod
     def send(cls, request: SeeyaSearchRequest) -> SeeyaSearchResponse:
         response = Client.send(request, SeeyaSearchResponse)
-        return from_seeya(response)
+        return SearchResponseMapper().map(response)

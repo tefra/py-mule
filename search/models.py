@@ -37,7 +37,7 @@ class PassengerRequest(Serializable):
     type: PassengerType
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class SearchRequest(Serializable):
     routes: List[RouteRequest]
     passengers: List[PassengerRequest]
