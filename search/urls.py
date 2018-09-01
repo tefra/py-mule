@@ -18,7 +18,7 @@ from django.conf.urls import url
 from search import views
 
 urlpatterns = [
-    url('index', views.index, name='index'),
-    url('async', views.async, name='async'),
-    url('sync', views.async, name='sync'),
+    url("index", views.index, name="index"),
+    url("async", views.async, name="async"),
+    url("sync", views.async, name="sync"),
 ]

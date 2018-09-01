@@ -1,13 +1,12 @@
+import hashlib
 from datetime import datetime
 from enum import Enum, unique
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 from attr import attrib, attrs
-from hashlib import md5
+
 from mule.converters import upper
-from mule.models import BaseModel
-from seeya.models import SearchQueryLeg, SearchQueryExcludedCarriers, \
-    SearchQueryPassenger, Metadata, SearchQuery, SeeyaSearchRequest
+from mule.models import Serializable
 
 
 def validate_iso_date(_, attr, value):
@@ -19,7 +18,7 @@ def validate_iso_date(_, attr, value):
 
 
 @attrs(frozen=True, auto_attribs=True)
-class RouteRequest(BaseModel):
+class RouteRequest(Serializable):
     departure: str = attrib(converter=upper)
     arrival: str = attrib(converter=upper)
     datetime: str = attrib(validator=validate_iso_date)
@@ -27,19 +26,19 @@ class RouteRequest(BaseModel):
 
 @unique
 class PassengerType(Enum):
-    ADT = 'adults'
-    CHD = 'children'
-    INF = 'infants'
+    ADT = "adults"
+    CHD = "children"
+    INF = "infants"
 
 
 @attrs(frozen=True, auto_attribs=True)
-class PassengerRequest(BaseModel):
+class PassengerRequest(Serializable):
     count: int
     type: PassengerType
 
 
-@attrs(frozen=True, auto_attribs=True)
-class SearchRequest(BaseModel):
+@attrs(auto_attribs=True)
+class SearchRequest(Serializable):
     routes: List[RouteRequest]
     passengers: List[PassengerRequest]
     cabinClass: str
@@ -52,26 +51,26 @@ class SearchRequest(BaseModel):
 
 
 @attrs(frozen=True, auto_attribs=True)
-class ResourceCabinClass(BaseModel):
+class ResourceCabinClass(Serializable):
     code: str
     name: str
 
 
 @attrs(frozen=True, auto_attribs=True)
-class ResourceCarrier(BaseModel):
+class ResourceCarrier(Serializable):
     code: str
     logo: str
     name: str
 
 
 @attrs(frozen=True, auto_attribs=True)
-class ResourceEquipment(BaseModel):
+class ResourceEquipment(Serializable):
     code: str
     name: str
 
 
 @attrs(frozen=True, auto_attribs=True)
-class ResourceLocation(BaseModel):
+class ResourceLocation(Serializable):
     code: str
     name: str
     country: str
@@ -79,7 +78,7 @@ class ResourceLocation(BaseModel):
 
 
 @attrs(frozen=True, auto_attribs=True)
-class Resources(BaseModel):
+class Resources(Serializable):
     carriers: Dict[str, ResourceCarrier]
     cabinClasses: Dict[str, ResourceCabinClass]
     locations: Dict[str, ResourceLocation]
@@ -87,7 +86,7 @@ class Resources(BaseModel):
 
 
 @attrs(frozen=True, auto_attribs=True)
-class Price(BaseModel):
+class Price(Serializable):
     currency: str
     faceValue: float
     tax: float
@@ -95,54 +94,48 @@ class Price(BaseModel):
 
 
 @attrs(frozen=True, auto_attribs=True)
-class Passenger(BaseModel):
+class Passenger(Serializable):
     count: int
     price: Price
 
     def get_total(self) -> float:
-        return self.price.total * self.count;
+        return self.price.total * self.count
 
 
 @attrs(frozen=True, auto_attribs=True)
-class Service(BaseModel):
+class Services(Serializable):
     cabinClass: str
     bookingClass: str
-    baggageAllowance: int
 
 
 @attrs(frozen=True, auto_attribs=True)
-class Point(BaseModel):
+class Point(Serializable):
     location: str
     datetime: str
 
 
 @attrs(frozen=True, auto_attribs=True)
-class TechnicalStop(BaseModel):
+class TechnicalStop(Serializable):
     duration: int
     arrival: Point
     departure: Point
 
 
 @attrs(frozen=True, auto_attribs=True)
-class Route(BaseModel):
+class Route(Serializable):
     departure: Point
     arrival: Point
     technicalStop: List[TechnicalStop]
 
 
 @attrs(frozen=True, auto_attribs=True)
-class LegService(BaseModel):
-    numberOfSeats: int
-
-
-@attrs(frozen=True, auto_attribs=True)
-class Carrier(BaseModel):
+class Carrier(Serializable):
     marketing: str
     operating: str
 
 
 @attrs(frozen=True, auto_attribs=True)
-class Transport(BaseModel):
+class Transport(Serializable):
     type: str
     number: str
     equipment: str
@@ -150,99 +143,90 @@ class Transport(BaseModel):
 
 
 @attrs(frozen=True, auto_attribs=True)
-class Segment(BaseModel):
+class Segment(Serializable):
     transport: Transport
     route: Route
-    services: Service
     duration: int
+    services: Services = attrib(default=None)
 
     def generate_id(self) -> str:
-        return ''.join([
-            self.transport.number,
-            self.transport.carriers.marketing,
-            self.route.departure.datetime,
-            self.route.arrival.datetime,
-            self.route.departure.location,
-            self.route.arrival.location,
-            self.services.cabinClass
-        ])
+        return "".join(
+            [
+                self.transport.number,
+                self.transport.carriers.marketing,
+                self.route.departure.datetime,
+                self.route.arrival.datetime,
+                self.route.departure.location,
+                self.route.arrival.location,
+                self.services.cabinClass,
+            ]
+        )
 
 
 @attrs(frozen=True, auto_attribs=True)
-class Leg(BaseModel):
-    duration: int
-    services: LegService
+class Leg(Serializable):
     segments: List[Segment]
+    duration: int = attrib(init=False, default=None)
 
 
-@attrs(frozen=True, auto_attribs=True)
-class Provider(BaseModel):
+@attrs(auto_attribs=True)
+class Provider(Serializable):
     name: str
-    presentationName: str
     uri: str
+    presentationName: str = attrib(init=False)
+
+    def __attrs_post_init__(self):
+        self.presentationName = self.name
 
 
-@attrs(frozen=True, auto_attribs=True)
-class SearchResponseData(BaseModel):
+@attrs(auto_attribs=True)
+class SearchResponseData(Serializable):
     id: str
-    groupId: str
+    groupId: str = attrib(init=False)
     provider: Provider
-    resources: Resources
+    resources: Resources = attrib(init=False)
     legs: List[Leg]
     passengers: Dict[PassengerType, Passenger]
+
+    def __attrs_post_init__(self):
+        self.groupId = self.generate_group_id()
+        self.resources = self.generate_resources()
 
     def get_total(self) -> float:
         return sum([p.get_total() for p in self.passengers.values()])
 
-    def generate_id(self) -> str:
+    def generate_group_id(self) -> str:
         parts = [s.generate_id() for l in self.legs for s in l.segments]
-        md5(''.join(parts)).digest()
+        return hashlib.md5("".join(parts).encode(encoding="utf-8")).hexdigest()
 
+    def generate_resources(self):
+        carriers = dict()
+        classes = dict()
+        locations = dict()
+        equipments = dict()
 
-@attrs(frozen=True, auto_attribs=True)
-class SearchResponse(BaseModel):
-    data: List[SearchResponseData]
+        for leg in self.legs:
+            for segment in leg.segments:
+                carriers.setdefault(segment.transport.carriers.marketing, None)
+                carriers.setdefault(segment.transport.carriers.operating, None)
+                equipments.setdefault(segment.transport.equipment, None)
+                classes.setdefault(segment.services.cabinClass, None)
 
+                locations.setdefault(segment.route.departure.location, None)
+                locations.setdefault(segment.route.arrival.location, None)
+                for stop in segment.route.technicalStop:
+                    locations.setdefault(stop.arrival.location, None)
+                    locations.setdefault(stop.departure.location, None)
 
-@attrs(frozen=True, auto_attribs=True)
-class SearchRequestMapper:
-    Passengers = List[PassengerRequest]
-    SeeyaPassengers = List[SearchQueryPassenger]
-    Routes = List[RouteRequest]
-    SeeyaLegs = List[SearchQueryLeg]
-
-    @classmethod
-    def to_seeya(cls, request: SearchRequest) -> SeeyaSearchRequest:
-        return SeeyaSearchRequest(
-            searchQuery=SearchQuery(
-                direct=request.directRoutes,
-                preferredCarrier=request.carrier,
-                currency=request.currency,
-                recommendedCabinClass=request.cabinClass,
-                legs=cls.convert_routes(request.routes),
-                passengers=cls.convert_passengers(request.passengers)
-            ),
-            metadata=Metadata(market=request.market, locale=request.locale)
+        return Resources(
+            carriers=carriers,
+            cabinClasses=classes,
+            locations=locations,
+            equipments=equipments,
         )
 
-    @classmethod
-    def convert_passengers(cls, passengers: Passengers) -> SeeyaPassengers:
-        def create_passenger(x: PassengerRequest) -> SearchQueryPassenger:
-            return SearchQueryPassenger(
-                count=x.count,
-                type=x.type.name
-            )
 
-        return [create_passenger(passenger) for passenger in passengers]
-
-    @classmethod
-    def convert_routes(cls, routes: Routes) -> SeeyaLegs:
-        def create_leg(x: RouteRequest) -> SearchQueryLeg:
-            return SearchQueryLeg(
-                dep=x.departure,
-                arr=x.arrival,
-                date=x.datetime.replace('T', ' '),
-                excludedCarriers=SearchQueryExcludedCarriers()
-            )
-
-        return [create_leg(route) for route in routes]
+@attrs(frozen=True, auto_attribs=True)
+class SearchResponse(Serializable):
+    data: List[SearchResponseData]
+    error: Optional[str]
