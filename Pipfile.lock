@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "808d889ce688369ff75e293a4dfe9542933f40a5a16e9167cbc350d72e9075b2"
+            "sha256": "6679c34f79886a5d5979941070059248c1414a2a6d1bca70ebbc35551ce679cb"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -39,6 +39,14 @@
             "index": "pypi",
             "version": "==2.1.1"
         },
+        "djangorestframework": {
+            "hashes": [
+                "sha256:b6714c3e4b0f8d524f193c91ecf5f5450092c2145439ac2769711f7eba89a9d9",
+                "sha256:c375e4f95a3a64fccac412e36fb42ba36881e52313ec021ef410b40f67cddca4"
+            ],
+            "index": "pypi",
+            "version": "==3.8.2"
+        },
         "python3-gearman": {
             "hashes": [
                 "sha256:3ee44df221587c76ff13f0bebf4923b02b31b1b069ffda07416658be0614865c",
@@ -55,6 +63,7 @@
             "version": "==2018.5"
         },
         "rx": {
+            "editable": "true",
             "git": "https://github.com/ReactiveX/RxPY.git",
             "ref": "6282bb0d2cd01d9c46d0b256f26d02d4e76cb7dd"
         }
