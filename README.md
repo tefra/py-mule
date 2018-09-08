@@ -1,4 +1,7 @@
 # py-mule
+[![Build Status](https://travis-ci.org/tefra/py-mule.svg?branch=master)](https://travis-ci.org/tefra/py-mule)
+[![codecov](https://codecov.io/gh/tefra/py-mule/branch/master/graph/badge.svg)](https://codecov.io/gh/tefra/py-mule)
+![GitHub top language](https://img.shields.io/github/languages/top/tefra/py-mule.svg)
 
 ## History
 The last interesting project I was involved with at my last workplace was called ***Mule***. It is responsible to retrieve and serve flight content from multiple providers as fast as possible. Mule was written in java8 with spring boot and webflux
