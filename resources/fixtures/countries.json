@@ -1,0 +1,2342 @@
+[
+{
+    "model": "resources.country",
+    "pk": "AD",
+    "fields": {
+        "iso_code": "AND",
+        "name": "Andorra",
+        "continent": "Europe",
+        "dialingCode": "376"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "AE",
+    "fields": {
+        "iso_code": "ARE",
+        "name": "United Arab Emirates",
+        "continent": "Asia",
+        "dialingCode": "971"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "AF",
+    "fields": {
+        "iso_code": "AFG",
+        "name": "Afghanistan",
+        "continent": "Asia",
+        "dialingCode": "93"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "AG",
+    "fields": {
+        "iso_code": "ATG",
+        "name": "Antigua and Barbuda",
+        "continent": "Caribbean",
+        "dialingCode": "1268"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "AI",
+    "fields": {
+        "iso_code": "AIA",
+        "name": "Anguilla",
+        "continent": "Caribbean",
+        "dialingCode": "1264"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "AL",
+    "fields": {
+        "iso_code": "ALB",
+        "name": "Albania",
+        "continent": "Europe",
+        "dialingCode": "355"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "AM",
+    "fields": {
+        "iso_code": "ARM",
+        "name": "Armenia",
+        "continent": "Europe",
+        "dialingCode": "374"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "AN",
+    "fields": {
+        "iso_code": "ANT",
+        "name": "Netherlands Antilles",
+        "continent": "Caribbean",
+        "dialingCode": "599"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "AO",
+    "fields": {
+        "iso_code": "AGO",
+        "name": "Angola",
+        "continent": "Africa",
+        "dialingCode": "244"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "AR",
+    "fields": {
+        "iso_code": "ARG",
+        "name": "Argentina",
+        "continent": "South America",
+        "dialingCode": "54"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "AS",
+    "fields": {
+        "iso_code": "ASM",
+        "name": "American Samoa",
+        "continent": "Oceania",
+        "dialingCode": "1684"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "AT",
+    "fields": {
+        "iso_code": "AUT",
+        "name": "Austria",
+        "continent": "Europe",
+        "dialingCode": "43"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "AU",
+    "fields": {
+        "iso_code": "AUS",
+        "name": "Australia",
+        "continent": "Oceania",
+        "dialingCode": "61"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "AW",
+    "fields": {
+        "iso_code": "ABW",
+        "name": "Aruba",
+        "continent": "Caribbean",
+        "dialingCode": "297"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "AZ",
+    "fields": {
+        "iso_code": "AZE",
+        "name": "Azerbaijan",
+        "continent": "Europe",
+        "dialingCode": "994"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "BA",
+    "fields": {
+        "iso_code": "BIH",
+        "name": "Bosnia & Herzegovina",
+        "continent": "Europe",
+        "dialingCode": "387"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "BB",
+    "fields": {
+        "iso_code": "BRB",
+        "name": "Barbados",
+        "continent": "Caribbean",
+        "dialingCode": "1246"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "BD",
+    "fields": {
+        "iso_code": "BGD",
+        "name": "Bangladesh",
+        "continent": "Asia",
+        "dialingCode": "880"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "BE",
+    "fields": {
+        "iso_code": "BEL",
+        "name": "Belgium",
+        "continent": "Europe",
+        "dialingCode": "32"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "BF",
+    "fields": {
+        "iso_code": "BFA",
+        "name": "Burkina Faso",
+        "continent": "Africa",
+        "dialingCode": "226"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "BG",
+    "fields": {
+        "iso_code": "BGR",
+        "name": "Bulgaria",
+        "continent": "Europe",
+        "dialingCode": "359"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "BH",
+    "fields": {
+        "iso_code": "BHR",
+        "name": "Bahrain",
+        "continent": "Asia",
+        "dialingCode": "973"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "BI",
+    "fields": {
+        "iso_code": "BDI",
+        "name": "Burundi",
+        "continent": "Africa",
+        "dialingCode": "257"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "BJ",
+    "fields": {
+        "iso_code": "BEN",
+        "name": "Benin",
+        "continent": "Africa",
+        "dialingCode": "229"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "BL",
+    "fields": {
+        "iso_code": "BLM",
+        "name": "Saint Barthelemy",
+        "continent": "Caribbean",
+        "dialingCode": "590"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "BM",
+    "fields": {
+        "iso_code": "BMU",
+        "name": "Bermuda",
+        "continent": "Caribbean",
+        "dialingCode": "1441"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "BN",
+    "fields": {
+        "iso_code": "BRN",
+        "name": "Brunei",
+        "continent": "Asia",
+        "dialingCode": "673"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "BO",
+    "fields": {
+        "iso_code": "BOL",
+        "name": "Bolivia",
+        "continent": "South America",
+        "dialingCode": "591"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "BR",
+    "fields": {
+        "iso_code": "BRA",
+        "name": "Brazil",
+        "continent": "South America",
+        "dialingCode": "55"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "BS",
+    "fields": {
+        "iso_code": "BHS",
+        "name": "Bahamas",
+        "continent": "Caribbean",
+        "dialingCode": "1242"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "BT",
+    "fields": {
+        "iso_code": "BTN",
+        "name": "Bhutan",
+        "continent": "Asia",
+        "dialingCode": "975"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "BW",
+    "fields": {
+        "iso_code": "BWA",
+        "name": "Botswana",
+        "continent": "Africa",
+        "dialingCode": "267"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "BY",
+    "fields": {
+        "iso_code": "BLR",
+        "name": "Belarus",
+        "continent": "Europe",
+        "dialingCode": "375"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "BZ",
+    "fields": {
+        "iso_code": "BLZ",
+        "name": "Belize",
+        "continent": "Central America",
+        "dialingCode": "501"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "CA",
+    "fields": {
+        "iso_code": "CAN",
+        "name": "Canada",
+        "continent": "North America",
+        "dialingCode": "1"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "CC",
+    "fields": {
+        "iso_code": "CCK",
+        "name": "Cocos (Keeling) Islands",
+        "continent": "Oceania",
+        "dialingCode": "61"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "CD",
+    "fields": {
+        "iso_code": "COD",
+        "name": "Democratic Republic of the Congo",
+        "continent": "Africa",
+        "dialingCode": "243"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "CF",
+    "fields": {
+        "iso_code": "CAF",
+        "name": "Central African Republic",
+        "continent": "Africa",
+        "dialingCode": "236"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "CG",
+    "fields": {
+        "iso_code": "COG",
+        "name": "Congo",
+        "continent": "Africa",
+        "dialingCode": "242"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "CH",
+    "fields": {
+        "iso_code": "CHE",
+        "name": "Switzerland",
+        "continent": "Europe",
+        "dialingCode": "41"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "CI",
+    "fields": {
+        "iso_code": "CIV",
+        "name": "Cote D'Ivoire",
+        "continent": "Africa",
+        "dialingCode": "225"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "CK",
+    "fields": {
+        "iso_code": "COK",
+        "name": "Cook Islands",
+        "continent": "Oceania",
+        "dialingCode": "682"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "CL",
+    "fields": {
+        "iso_code": "CHL",
+        "name": "Chile",
+        "continent": "South America",
+        "dialingCode": "56"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "CM",
+    "fields": {
+        "iso_code": "CMR",
+        "name": "Cameroon",
+        "continent": "Africa",
+        "dialingCode": "237"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "CN",
+    "fields": {
+        "iso_code": "CHN",
+        "name": "China",
+        "continent": "Asia",
+        "dialingCode": "86"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "CO",
+    "fields": {
+        "iso_code": "COL",
+        "name": "Colombia",
+        "continent": "South America",
+        "dialingCode": "57"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "CR",
+    "fields": {
+        "iso_code": "CRI",
+        "name": "Costa Rica",
+        "continent": "Central America",
+        "dialingCode": "506"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "CU",
+    "fields": {
+        "iso_code": "CUB",
+        "name": "Cuba",
+        "continent": "Caribbean",
+        "dialingCode": "53"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "CV",
+    "fields": {
+        "iso_code": "CPV",
+        "name": "Cabo Verde",
+        "continent": "Africa",
+        "dialingCode": "238"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "CX",
+    "fields": {
+        "iso_code": "CXR",
+        "name": "Christmas Island",
+        "continent": "Oceania",
+        "dialingCode": "61"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "CY",
+    "fields": {
+        "iso_code": "CYP",
+        "name": "Cyprus",
+        "continent": "Europe",
+        "dialingCode": "357"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "CZ",
+    "fields": {
+        "iso_code": "CZE",
+        "name": "Czech Republic",
+        "continent": "Europe",
+        "dialingCode": "420"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "DE",
+    "fields": {
+        "iso_code": "DEU",
+        "name": "Germany",
+        "continent": "Europe",
+        "dialingCode": "49"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "DJ",
+    "fields": {
+        "iso_code": "DJI",
+        "name": "Djibouti",
+        "continent": "Africa",
+        "dialingCode": "253"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "DK",
+    "fields": {
+        "iso_code": "DNK",
+        "name": "Denmark",
+        "continent": "Europe",
+        "dialingCode": "45"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "DM",
+    "fields": {
+        "iso_code": "DMA",
+        "name": "Dominica",
+        "continent": "Caribbean",
+        "dialingCode": "1767"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "DO",
+    "fields": {
+        "iso_code": "DOM",
+        "name": "Dominican Republic",
+        "continent": "Caribbean",
+        "dialingCode": "1809"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "DZ",
+    "fields": {
+        "iso_code": "DZA",
+        "name": "Algeria",
+        "continent": "Africa",
+        "dialingCode": "213"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "EC",
+    "fields": {
+        "iso_code": "ECU",
+        "name": "Ecuador",
+        "continent": "South America",
+        "dialingCode": "593"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "EE",
+    "fields": {
+        "iso_code": "EST",
+        "name": "Estonia",
+        "continent": "Europe",
+        "dialingCode": "372"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "EG",
+    "fields": {
+        "iso_code": "EGY",
+        "name": "Egypt",
+        "continent": "Africa",
+        "dialingCode": "20"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "ER",
+    "fields": {
+        "iso_code": "ERI",
+        "name": "Eritrea",
+        "continent": "Africa",
+        "dialingCode": "291"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "ES",
+    "fields": {
+        "iso_code": "ESP",
+        "name": "Spain",
+        "continent": "Europe",
+        "dialingCode": "34"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "ET",
+    "fields": {
+        "iso_code": "ETH",
+        "name": "Ethiopia",
+        "continent": "Africa",
+        "dialingCode": "251"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "FI",
+    "fields": {
+        "iso_code": "FIN",
+        "name": "Finland",
+        "continent": "Europe",
+        "dialingCode": "358"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "FJ",
+    "fields": {
+        "iso_code": "FJI",
+        "name": "Fiji",
+        "continent": "Oceania",
+        "dialingCode": "679"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "FK",
+    "fields": {
+        "iso_code": "FLK",
+        "name": "Falkland Islands",
+        "continent": "South America",
+        "dialingCode": "500"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "FM",
+    "fields": {
+        "iso_code": "FSM",
+        "name": "Micronesia",
+        "continent": "Oceania",
+        "dialingCode": "691"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "FO",
+    "fields": {
+        "iso_code": "FRO",
+        "name": "Faroe Islands",
+        "continent": "Europe",
+        "dialingCode": "298"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "FR",
+    "fields": {
+        "iso_code": "FRA",
+        "name": "France",
+        "continent": "Europe",
+        "dialingCode": "33"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "GA",
+    "fields": {
+        "iso_code": "GAB",
+        "name": "Gabon",
+        "continent": "Africa",
+        "dialingCode": "241"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "GB",
+    "fields": {
+        "iso_code": "GBR",
+        "name": "United Kingdom",
+        "continent": "Europe",
+        "dialingCode": "44"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "GD",
+    "fields": {
+        "iso_code": "GRD",
+        "name": "Grenada",
+        "continent": "Caribbean",
+        "dialingCode": "1473"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "GE",
+    "fields": {
+        "iso_code": "GEO",
+        "name": "Georgia",
+        "continent": "Europe",
+        "dialingCode": "995"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "GF",
+    "fields": {
+        "iso_code": "GUF",
+        "name": "French Guiana",
+        "continent": "South America",
+        "dialingCode": "594"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "GH",
+    "fields": {
+        "iso_code": "GHA",
+        "name": "Ghana",
+        "continent": "Africa",
+        "dialingCode": "233"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "GI",
+    "fields": {
+        "iso_code": "GIB",
+        "name": "Gibraltar",
+        "continent": "Europe",
+        "dialingCode": "350"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "GL",
+    "fields": {
+        "iso_code": "GRL",
+        "name": "Greenland",
+        "continent": "Europe",
+        "dialingCode": "299"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "GM",
+    "fields": {
+        "iso_code": "GMB",
+        "name": "Gambia",
+        "continent": "Africa",
+        "dialingCode": "220"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "GN",
+    "fields": {
+        "iso_code": "GIN",
+        "name": "Guinea",
+        "continent": "Africa",
+        "dialingCode": "224"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "GP",
+    "fields": {
+        "iso_code": "GLP",
+        "name": "Guadeloupe",
+        "continent": "Caribbean",
+        "dialingCode": "590"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "GQ",
+    "fields": {
+        "iso_code": "GNQ",
+        "name": "Equatorial Guinea",
+        "continent": "Africa",
+        "dialingCode": "240"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "GR",
+    "fields": {
+        "iso_code": "GRC",
+        "name": "Greece",
+        "continent": "Europe",
+        "dialingCode": "30"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "GT",
+    "fields": {
+        "iso_code": "GTM",
+        "name": "Guatemala",
+        "continent": "Central America",
+        "dialingCode": "502"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "GU",
+    "fields": {
+        "iso_code": "GUM",
+        "name": "Guam",
+        "continent": "Oceania",
+        "dialingCode": "1671"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "GW",
+    "fields": {
+        "iso_code": "GNB",
+        "name": "Guinea-Bissau",
+        "continent": "Africa",
+        "dialingCode": "245"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "GY",
+    "fields": {
+        "iso_code": "GUY",
+        "name": "Guyana",
+        "continent": "South America",
+        "dialingCode": "592"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "HK",
+    "fields": {
+        "iso_code": "HKG",
+        "name": "Hong-Kong",
+        "continent": "Asia",
+        "dialingCode": "852"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "HN",
+    "fields": {
+        "iso_code": "HND",
+        "name": "Honduras",
+        "continent": "Central America",
+        "dialingCode": "504"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "HR",
+    "fields": {
+        "iso_code": "HRV",
+        "name": "Croatia",
+        "continent": "Europe",
+        "dialingCode": "385"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "HT",
+    "fields": {
+        "iso_code": "HTI",
+        "name": "Haiti",
+        "continent": "Caribbean",
+        "dialingCode": "509"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "HU",
+    "fields": {
+        "iso_code": "HUN",
+        "name": "Hungary",
+        "continent": "Europe",
+        "dialingCode": "36"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "ID",
+    "fields": {
+        "iso_code": "IDN",
+        "name": "Indonesia",
+        "continent": "Asia",
+        "dialingCode": "62"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "IE",
+    "fields": {
+        "iso_code": "IRL",
+        "name": "Ireland",
+        "continent": "Europe",
+        "dialingCode": "353"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "IL",
+    "fields": {
+        "iso_code": "ISR",
+        "name": "Israel",
+        "continent": "Asia",
+        "dialingCode": "972"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "IN",
+    "fields": {
+        "iso_code": "IND",
+        "name": "India",
+        "continent": "Asia",
+        "dialingCode": "91"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "IQ",
+    "fields": {
+        "iso_code": "IQ",
+        "name": "Iraq",
+        "continent": "Asia",
+        "dialingCode": "964"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "IR",
+    "fields": {
+        "iso_code": "IRN",
+        "name": "Iran",
+        "continent": "Asia",
+        "dialingCode": "98"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "IS",
+    "fields": {
+        "iso_code": "ISL",
+        "name": "Iceland",
+        "continent": "Europe",
+        "dialingCode": "354"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "IT",
+    "fields": {
+        "iso_code": "ITA",
+        "name": "Italy",
+        "continent": "Europe",
+        "dialingCode": "39"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "JE",
+    "fields": {
+        "iso_code": "JEY",
+        "name": "Jersey (Bailiwick of Jersey)",
+        "continent": "Europe",
+        "dialingCode": "44"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "JM",
+    "fields": {
+        "iso_code": "JAM",
+        "name": "Jamaica",
+        "continent": "Caribbean",
+        "dialingCode": "1876"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "JO",
+    "fields": {
+        "iso_code": "JOR",
+        "name": "Jordan",
+        "continent": "Asia",
+        "dialingCode": "962"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "JP",
+    "fields": {
+        "iso_code": "JPN",
+        "name": "Japan",
+        "continent": "Asia",
+        "dialingCode": "81"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "KE",
+    "fields": {
+        "iso_code": "KEN",
+        "name": "Kenya",
+        "continent": "Africa",
+        "dialingCode": "254"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "KG",
+    "fields": {
+        "iso_code": "KGZ",
+        "name": "Kyrgyzstan",
+        "continent": "Asia",
+        "dialingCode": "996"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "KH",
+    "fields": {
+        "iso_code": "KHM",
+        "name": "Cambodia",
+        "continent": "Asia",
+        "dialingCode": "855"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "KI",
+    "fields": {
+        "iso_code": "KIR",
+        "name": "Kiribati",
+        "continent": "Oceania",
+        "dialingCode": "686"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "KM",
+    "fields": {
+        "iso_code": "COM",
+        "name": "Comoros",
+        "continent": "Africa",
+        "dialingCode": "269"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "KN",
+    "fields": {
+        "iso_code": "KNA",
+        "name": "Saint Kitts and Nevis",
+        "continent": "Caribbean",
+        "dialingCode": "1869"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "KP",
+    "fields": {
+        "iso_code": "KPW",
+        "name": "North Korea",
+        "continent": "Asia",
+        "dialingCode": "850"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "KR",
+    "fields": {
+        "iso_code": "KRW",
+        "name": "South Korea",
+        "continent": "Asia",
+        "dialingCode": "82"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "KW",
+    "fields": {
+        "iso_code": "KWT",
+        "name": "Kuwait",
+        "continent": "Asia",
+        "dialingCode": "965"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "KY",
+    "fields": {
+        "iso_code": "CYM",
+        "name": "Cayman Islands",
+        "continent": "Caribbean",
+        "dialingCode": "1345"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "KZ",
+    "fields": {
+        "iso_code": "KAZ",
+        "name": "Kazakhstan",
+        "continent": "Asia",
+        "dialingCode": "7"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "LA",
+    "fields": {
+        "iso_code": "LAO",
+        "name": "Laos",
+        "continent": "Asia",
+        "dialingCode": "856"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "LB",
+    "fields": {
+        "iso_code": "LBN",
+        "name": "Lebanon",
+        "continent": "Asia",
+        "dialingCode": "961"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "LC",
+    "fields": {
+        "iso_code": "LCA",
+        "name": "St. Lucia",
+        "continent": "Caribbean",
+        "dialingCode": "1758"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "LI",
+    "fields": {
+        "iso_code": "LIE",
+        "name": "Liechtenstein",
+        "continent": "Europe",
+        "dialingCode": "423"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "LK",
+    "fields": {
+        "iso_code": "LKA",
+        "name": "Sri Lanka",
+        "continent": "Asia",
+        "dialingCode": "94"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "LR",
+    "fields": {
+        "iso_code": "LBR",
+        "name": "Liberia",
+        "continent": "Africa",
+        "dialingCode": "231"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "LS",
+    "fields": {
+        "iso_code": "LSO",
+        "name": "Lesotho",
+        "continent": "Africa",
+        "dialingCode": "266"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "LT",
+    "fields": {
+        "iso_code": "LTU",
+        "name": "Lithuania",
+        "continent": "Europe",
+        "dialingCode": "370"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "LU",
+    "fields": {
+        "iso_code": "LUX",
+        "name": "Luxembourg",
+        "continent": "Europe",
+        "dialingCode": "352"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "LV",
+    "fields": {
+        "iso_code": "LVA",
+        "name": "Latvia",
+        "continent": "Europe",
+        "dialingCode": "371"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "LY",
+    "fields": {
+        "iso_code": "LBY",
+        "name": "Libya",
+        "continent": "Africa",
+        "dialingCode": "218"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "MA",
+    "fields": {
+        "iso_code": "MAR",
+        "name": "Morocco",
+        "continent": "Africa",
+        "dialingCode": "212"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "MC",
+    "fields": {
+        "iso_code": "MCO",
+        "name": "Monaco",
+        "continent": "Europe",
+        "dialingCode": "377"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "MD",
+    "fields": {
+        "iso_code": "MDA",
+        "name": "Moldova",
+        "continent": "Europe",
+        "dialingCode": "373"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "ME",
+    "fields": {
+        "iso_code": "MNE",
+        "name": "Montenegro",
+        "continent": "Europe",
+        "dialingCode": "382"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "MF",
+    "fields": {
+        "iso_code": "MAF",
+        "name": "St. Martin",
+        "continent": "Caribbean",
+        "dialingCode": "590"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "MG",
+    "fields": {
+        "iso_code": "MDG",
+        "name": "Madagascar",
+        "continent": "Africa",
+        "dialingCode": "261"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "MH",
+    "fields": {
+        "iso_code": "MHL",
+        "name": "Marshall Islands",
+        "continent": "Oceania",
+        "dialingCode": "692"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "MK",
+    "fields": {
+        "iso_code": "MKD",
+        "name": "Fyrom",
+        "continent": "Europe",
+        "dialingCode": "389"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "ML",
+    "fields": {
+        "iso_code": "MLI",
+        "name": "Mali",
+        "continent": "Africa",
+        "dialingCode": "223"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "MM",
+    "fields": {
+        "iso_code": "MMR",
+        "name": "Myanmar",
+        "continent": "Asia",
+        "dialingCode": "95"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "MN",
+    "fields": {
+        "iso_code": "MNG",
+        "name": "Mongolia",
+        "continent": "Asia",
+        "dialingCode": "976"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "MO",
+    "fields": {
+        "iso_code": "MAC",
+        "name": "Macau",
+        "continent": "Asia",
+        "dialingCode": "853"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "MP",
+    "fields": {
+        "iso_code": "MNP",
+        "name": "Northern Mariana Islands",
+        "continent": "Asia",
+        "dialingCode": "1670"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "MQ",
+    "fields": {
+        "iso_code": "MTQ",
+        "name": "Martinique",
+        "continent": "Caribbean",
+        "dialingCode": "596"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "MR",
+    "fields": {
+        "iso_code": "MRT",
+        "name": "Mauritania",
+        "continent": "Africa",
+        "dialingCode": "222"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "MS",
+    "fields": {
+        "iso_code": "MSR",
+        "name": "Montserrat",
+        "continent": "Caribbean",
+        "dialingCode": "1664"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "MT",
+    "fields": {
+        "iso_code": "MLT",
+        "name": "Malta",
+        "continent": "Europe",
+        "dialingCode": "356"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "MU",
+    "fields": {
+        "iso_code": "MUS",
+        "name": "Mauritius Island",
+        "continent": "Asia",
+        "dialingCode": "230"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "MV",
+    "fields": {
+        "iso_code": "MDV",
+        "name": "Maldives",
+        "continent": "Asia",
+        "dialingCode": "960"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "MW",
+    "fields": {
+        "iso_code": "MWI",
+        "name": "Malawi",
+        "continent": "Africa",
+        "dialingCode": "265"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "MX",
+    "fields": {
+        "iso_code": "MEX",
+        "name": "Mexico",
+        "continent": "Central America",
+        "dialingCode": "52"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "MY",
+    "fields": {
+        "iso_code": "MYS",
+        "name": "Malaysia",
+        "continent": "Asia",
+        "dialingCode": "60"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "MZ",
+    "fields": {
+        "iso_code": "MOZ",
+        "name": "Mozambique",
+        "continent": "Africa",
+        "dialingCode": "258"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "NA",
+    "fields": {
+        "iso_code": "NAM",
+        "name": "Namibia",
+        "continent": "Africa",
+        "dialingCode": "264"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "NC",
+    "fields": {
+        "iso_code": "NCL",
+        "name": "New Caledonia",
+        "continent": "Oceania",
+        "dialingCode": "687"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "NE",
+    "fields": {
+        "iso_code": "MER",
+        "name": "Niger",
+        "continent": "Africa",
+        "dialingCode": "227"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "NF",
+    "fields": {
+        "iso_code": "NFK",
+        "name": "Norfolk Island",
+        "continent": "Oceania",
+        "dialingCode": "672"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "NG",
+    "fields": {
+        "iso_code": "NGA",
+        "name": "Nigeria",
+        "continent": "Africa",
+        "dialingCode": "234"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "NI",
+    "fields": {
+        "iso_code": "NIC",
+        "name": "Nicaragua",
+        "continent": "Central America",
+        "dialingCode": "505"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "NL",
+    "fields": {
+        "iso_code": "NLD",
+        "name": "Netherlands",
+        "continent": "Europe",
+        "dialingCode": "31"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "NO",
+    "fields": {
+        "iso_code": "NOR",
+        "name": "Norway",
+        "continent": "Europe",
+        "dialingCode": "47"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "NP",
+    "fields": {
+        "iso_code": "NPL",
+        "name": "Nepal",
+        "continent": "Asia",
+        "dialingCode": "977"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "NR",
+    "fields": {
+        "iso_code": "NRU",
+        "name": "Nauru",
+        "continent": "Oceania",
+        "dialingCode": "674"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "NU",
+    "fields": {
+        "iso_code": "NIU",
+        "name": "Niue",
+        "continent": "Oceania",
+        "dialingCode": "683"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "NZ",
+    "fields": {
+        "iso_code": "NZL",
+        "name": "New Zealand",
+        "continent": "Oceania",
+        "dialingCode": "64"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "OM",
+    "fields": {
+        "iso_code": "OMN",
+        "name": "Oman",
+        "continent": "Asia",
+        "dialingCode": "968"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "PA",
+    "fields": {
+        "iso_code": "PAN",
+        "name": "Panama",
+        "continent": "Central America",
+        "dialingCode": "507"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "PE",
+    "fields": {
+        "iso_code": "PER",
+        "name": "Peru",
+        "continent": "South America",
+        "dialingCode": "51"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "PF",
+    "fields": {
+        "iso_code": "PYF",
+        "name": "French Polynesia",
+        "continent": "Oceania",
+        "dialingCode": "689"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "PG",
+    "fields": {
+        "iso_code": "PNG",
+        "name": "Papua New Guinea",
+        "continent": "Asia",
+        "dialingCode": "675"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "PH",
+    "fields": {
+        "iso_code": "PHL",
+        "name": "Philippines",
+        "continent": "Asia",
+        "dialingCode": "63"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "PK",
+    "fields": {
+        "iso_code": "PAK",
+        "name": "Pakistan",
+        "continent": "Asia",
+        "dialingCode": "92"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "PL",
+    "fields": {
+        "iso_code": "POL",
+        "name": "Poland",
+        "continent": "Europe",
+        "dialingCode": "48"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "PM",
+    "fields": {
+        "iso_code": "SPM",
+        "name": "St. Pierre and Miquelon",
+        "continent": "North America",
+        "dialingCode": "508"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "PR",
+    "fields": {
+        "iso_code": "PRI",
+        "name": "Puerto Rico",
+        "continent": "Caribbean",
+        "dialingCode": "1787"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "PT",
+    "fields": {
+        "iso_code": "PRT",
+        "name": "Portugal",
+        "continent": "Europe",
+        "dialingCode": "351"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "PW",
+    "fields": {
+        "iso_code": "PLW",
+        "name": "Palau",
+        "continent": "Asia",
+        "dialingCode": "680"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "PY",
+    "fields": {
+        "iso_code": "PRY",
+        "name": "Paraguay",
+        "continent": "South America",
+        "dialingCode": "595"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "QA",
+    "fields": {
+        "iso_code": "QAT",
+        "name": "Qatar",
+        "continent": "Asia",
+        "dialingCode": "974"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "RE",
+    "fields": {
+        "iso_code": "REU",
+        "name": "Reunion",
+        "continent": "Africa",
+        "dialingCode": "262"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "RO",
+    "fields": {
+        "iso_code": "ROU",
+        "name": "Romania",
+        "continent": "Europe",
+        "dialingCode": "40"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "RS",
+    "fields": {
+        "iso_code": "SRB",
+        "name": "Serbia",
+        "continent": "Europe",
+        "dialingCode": "381"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "RU",
+    "fields": {
+        "iso_code": "RUS",
+        "name": "Russia",
+        "continent": "Europe",
+        "dialingCode": "7"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "RW",
+    "fields": {
+        "iso_code": "RWA",
+        "name": "Rwanda",
+        "continent": "Africa",
+        "dialingCode": "250"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "SA",
+    "fields": {
+        "iso_code": "SAU",
+        "name": "Saudi Arabia",
+        "continent": "Asia",
+        "dialingCode": "966"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "SB",
+    "fields": {
+        "iso_code": "SLB",
+        "name": "Soloman Islands",
+        "continent": "Asia",
+        "dialingCode": "677"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "SC",
+    "fields": {
+        "iso_code": "SYC",
+        "name": "Seychelles",
+        "continent": "Asia",
+        "dialingCode": "248"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "SD",
+    "fields": {
+        "iso_code": "SDN",
+        "name": "Sudan",
+        "continent": "Africa",
+        "dialingCode": "249"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "SE",
+    "fields": {
+        "iso_code": "SWE",
+        "name": "Sweden",
+        "continent": "Europe",
+        "dialingCode": "46"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "SG",
+    "fields": {
+        "iso_code": "SGP",
+        "name": "Singapore",
+        "continent": "Asia",
+        "dialingCode": "65"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "SH",
+    "fields": {
+        "iso_code": "SHN",
+        "name": "Saint Helena",
+        "continent": "Africa",
+        "dialingCode": "290"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "SI",
+    "fields": {
+        "iso_code": "SVN",
+        "name": "Slovenia",
+        "continent": "Europe",
+        "dialingCode": "386"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "SJ",
+    "fields": {
+        "iso_code": "SJM",
+        "name": "Svalbard & Jan Mayen Island",
+        "continent": "Europe",
+        "dialingCode": "47"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "SK",
+    "fields": {
+        "iso_code": "SVK",
+        "name": "Slovakia",
+        "continent": "Europe",
+        "dialingCode": "421"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "SL",
+    "fields": {
+        "iso_code": "SLE",
+        "name": "Sierra Leone",
+        "continent": "Africa",
+        "dialingCode": "232"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "SM",
+    "fields": {
+        "iso_code": "SMR",
+        "name": "San Marino",
+        "continent": "Europe",
+        "dialingCode": "378"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "SN",
+    "fields": {
+        "iso_code": "SEN",
+        "name": "Senegal",
+        "continent": "Africa",
+        "dialingCode": "221"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "SO",
+    "fields": {
+        "iso_code": "SOM",
+        "name": "Somalia",
+        "continent": "Africa",
+        "dialingCode": "252"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "SP",
+    "fields": {
+        "iso_code": "",
+        "name": "State of Palestine",
+        "continent": "Asia",
+        "dialingCode": "970"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "SR",
+    "fields": {
+        "iso_code": "SUR",
+        "name": "Suriname",
+        "continent": "South America",
+        "dialingCode": "597"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "ST",
+    "fields": {
+        "iso_code": "STP",
+        "name": "Sao Tome and Principe",
+        "continent": "Caribbean",
+        "dialingCode": "239"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "SV",
+    "fields": {
+        "iso_code": "SLV",
+        "name": "El Salvador",
+        "continent": "Central America",
+        "dialingCode": "503"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "SY",
+    "fields": {
+        "iso_code": "SYR",
+        "name": "Syria",
+        "continent": "Asia",
+        "dialingCode": "963"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "SZ",
+    "fields": {
+        "iso_code": "SWZ",
+        "name": "Swaziland",
+        "continent": "Africa",
+        "dialingCode": "268"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "TC",
+    "fields": {
+        "iso_code": "TCA",
+        "name": "Turks & Caicos",
+        "continent": "Caribbean",
+        "dialingCode": "1649"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "TD",
+    "fields": {
+        "iso_code": "TCD",
+        "name": "Chad",
+        "continent": "Africa",
+        "dialingCode": "235"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "TG",
+    "fields": {
+        "iso_code": "TGO",
+        "name": "Togo",
+        "continent": "Africa",
+        "dialingCode": "228"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "TH",
+    "fields": {
+        "iso_code": "THA",
+        "name": "Thailand",
+        "continent": "Asia",
+        "dialingCode": "66"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "TJ",
+    "fields": {
+        "iso_code": "TJK",
+        "name": "Tajikistan",
+        "continent": "Asia",
+        "dialingCode": "992"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "TL",
+    "fields": {
+        "iso_code": "TLS",
+        "name": "Timor - Leste",
+        "continent": "Asia",
+        "dialingCode": "670"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "TM",
+    "fields": {
+        "iso_code": "TKM",
+        "name": "Turkmenistan",
+        "continent": "Asia",
+        "dialingCode": "993"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "TN",
+    "fields": {
+        "iso_code": "TUN",
+        "name": "Tunisia",
+        "continent": "Africa",
+        "dialingCode": "216"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "TO",
+    "fields": {
+        "iso_code": "TON",
+        "name": "Tonga",
+        "continent": "Oceania",
+        "dialingCode": "676"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "TR",
+    "fields": {
+        "iso_code": "TUR",
+        "name": "Turkey",
+        "continent": "Asia",
+        "dialingCode": "90"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "TT",
+    "fields": {
+        "iso_code": "TTO",
+        "name": "Trinidad and Tobago",
+        "continent": "Caribbean",
+        "dialingCode": "1868"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "TV",
+    "fields": {
+        "iso_code": "TUV",
+        "name": "Tuvalu",
+        "continent": "Oceania",
+        "dialingCode": "688"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "TW",
+    "fields": {
+        "iso_code": "TWN",
+        "name": "Taiwan",
+        "continent": "Asia",
+        "dialingCode": "886"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "TZ",
+    "fields": {
+        "iso_code": "TZA",
+        "name": "Tanzania",
+        "continent": "Africa",
+        "dialingCode": "255"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "UA",
+    "fields": {
+        "iso_code": "UKR",
+        "name": "Ukraine",
+        "continent": "Europe",
+        "dialingCode": "380"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "UG",
+    "fields": {
+        "iso_code": "UGA",
+        "name": "Uganda",
+        "continent": "Africa",
+        "dialingCode": "256"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "UM",
+    "fields": {
+        "iso_code": "UMI",
+        "name": "US Minor Outlying Islands",
+        "continent": "Oceania",
+        "dialingCode": "699"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "US",
+    "fields": {
+        "iso_code": "USA",
+        "name": "USA",
+        "continent": "North America",
+        "dialingCode": "1"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "UY",
+    "fields": {
+        "iso_code": "URY",
+        "name": "Uruguay",
+        "continent": "South America",
+        "dialingCode": "598"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "UZ",
+    "fields": {
+        "iso_code": "UZB",
+        "name": "Uzbekistan",
+        "continent": "Asia",
+        "dialingCode": "998"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "VC",
+    "fields": {
+        "iso_code": "VCT",
+        "name": "Saint Vincent and the Grenadines",
+        "continent": "Caribbean",
+        "dialingCode": "1784"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "VE",
+    "fields": {
+        "iso_code": "VEN",
+        "name": "Venezuela",
+        "continent": "South America",
+        "dialingCode": "58"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "VG",
+    "fields": {
+        "iso_code": "VGB",
+        "name": "British Virgin Islands",
+        "continent": "Caribbean",
+        "dialingCode": "1809"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "VI",
+    "fields": {
+        "iso_code": "VIR",
+        "name": "US Virgin Islands",
+        "continent": "Caribbean",
+        "dialingCode": "1340"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "VN",
+    "fields": {
+        "iso_code": "VNM",
+        "name": "Vietnam",
+        "continent": "Asia",
+        "dialingCode": "84"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "VU",
+    "fields": {
+        "iso_code": "VUT",
+        "name": "Vanuatu",
+        "continent": "Oceania",
+        "dialingCode": "678"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "WF",
+    "fields": {
+        "iso_code": "WLF",
+        "name": "Wallis and Futuna Islands",
+        "continent": "Oceania",
+        "dialingCode": "681"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "WS",
+    "fields": {
+        "iso_code": "WSM",
+        "name": "Samoa",
+        "continent": "Oceania",
+        "dialingCode": "685"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "XK",
+    "fields": {
+        "iso_code": "",
+        "name": "Kosovo",
+        "continent": "Europe",
+        "dialingCode": "383"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "YE",
+    "fields": {
+        "iso_code": "YEM",
+        "name": "Yemen",
+        "continent": "Asia",
+        "dialingCode": "967"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "YT",
+    "fields": {
+        "iso_code": "MYT",
+        "name": "Mayotte",
+        "continent": "Africa",
+        "dialingCode": "269"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "ZA",
+    "fields": {
+        "iso_code": "ZAF",
+        "name": "South Africa",
+        "continent": "Africa",
+        "dialingCode": "27"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "ZM",
+    "fields": {
+        "iso_code": "ZMB",
+        "name": "Zambia",
+        "continent": "Africa",
+        "dialingCode": "260"
+    }
+},
+{
+    "model": "resources.country",
+    "pk": "ZW",
+    "fields": {
+        "iso_code": "ZWE",
+        "name": "Zimbabwe",
+        "continent": "Africa",
+        "dialingCode": "263"
+    }
+}
+]
