@@ -1,0 +1,18 @@
+language: python
+
+python:
+  - 3.6
+
+env:
+  - DJANGO=2.1 DB=sqlite
+
+install:
+  - pip install pipenv
+  - pipenv install --dev --three
+
+
+script:
+  - pipenv run coverage run manage.py test
+
+after_success:
+  - pipenv run codecov
