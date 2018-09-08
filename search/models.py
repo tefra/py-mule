@@ -1,27 +1,18 @@
 import hashlib
-from datetime import datetime
 from enum import Enum, unique
 from typing import List, Dict, Optional
 
 from attr import attrib, attrs
 
-from mule.converters import upper
 from mule.models import Serializable
+from search.validators import Regex, Datetime, evaluate
 
 
-def validate_iso_date(_, attr, value):
-    try:
-        datetime.strptime(value, "%Y-%m-%dT%H:%M:%S")
-    except Exception as e:
-        TypeError
-        raise ValueError(str(e))
-
-
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class RouteRequest(Serializable):
-    departure: str = attrib(converter=upper)
-    arrival: str = attrib(converter=upper)
-    datetime: str = attrib(validator=validate_iso_date)
+    departure: str = attrib(validator=Regex("[A-Z]{3}"))
+    arrival: str = attrib(validator=Regex("[A-Z]{3}"))
+    datetime: str = attrib(validator=Datetime("%Y-%m-%dT%H:%M:%S"))
 
 
 @unique
@@ -31,7 +22,16 @@ class PassengerType(Enum):
     INF = "infants"
 
 
-@attrs(frozen=True, auto_attribs=True)
+@unique
+class CabinClassType(Enum):
+    ECONOMY = "Y"
+    STANDARD_ECONOMY = "M"
+    PREMIUM_ECONOMY = "W"
+    BUSINESS = "C"
+    FIRST = "F"
+
+
+@attrs(auto_attribs=True)
 class PassengerRequest(Serializable):
     count: int
     type: PassengerType
@@ -40,36 +40,50 @@ class PassengerRequest(Serializable):
 @attrs(auto_attribs=True)
 class SearchRequest(Serializable):
     routes: List[RouteRequest]
-    passengers: List[PassengerRequest]
-    cabinClass: str
-    carrier: str
+    passengers: List[PassengerRequest] = attrib()
+    cabinClass: CabinClassType = attrib()
+    carrier: str = attrib(validator=Regex("([A-Z0-9]{2})?"))
     flexibleDates: bool
     locale: str
     currency: str
     market: str
     directRoutes: bool = attrib(default=False)
 
+    def get_passengers_by_type(self, type: PassengerType):
+        for pax in self.passengers:
+            if pax.type == type:
+                return pax
 
-@attrs(frozen=True, auto_attribs=True)
+    # @passengers.validator
+    # def validate_passengers(self, attr, value):
+    #     adt = self.get_passengers_by_type(PassengerType.ADT).count
+    #     chd = self.get_passengers_by_type(PassengerType.CHD).count
+    #     inf = self.get_passengers_by_type(PassengerType.INF).count
+    #
+    #     evaluate(adt > 0 and adt > inf, name=attr.name, value=value)
+    #     evaluate((adt + chd) < 9, name=attr.name, value=value)
+
+
+@attrs(auto_attribs=True)
 class ResourceCabinClass(Serializable):
     code: str
     name: str
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class ResourceCarrier(Serializable):
     code: str
     logo: str
     name: str
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class ResourceEquipment(Serializable):
     code: str
     name: str
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class ResourceLocation(Serializable):
     code: str
     name: str
@@ -77,7 +91,7 @@ class ResourceLocation(Serializable):
     city: str
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class Resources(Serializable):
     carriers: Dict[str, ResourceCarrier]
     cabinClasses: Dict[str, ResourceCabinClass]
@@ -85,7 +99,7 @@ class Resources(Serializable):
     equipments: Dict[str, ResourceEquipment]
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class Price(Serializable):
     currency: str
     faceValue: float
@@ -93,7 +107,7 @@ class Price(Serializable):
     total: float
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class Passenger(Serializable):
     count: int
     price: Price
@@ -102,39 +116,39 @@ class Passenger(Serializable):
         return self.price.total * self.count
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class Services(Serializable):
     cabinClass: str
     bookingClass: str
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class Point(Serializable):
     location: str
     datetime: str
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class TechnicalStop(Serializable):
     duration: int
     arrival: Point
     departure: Point
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class Route(Serializable):
     departure: Point
     arrival: Point
     technicalStop: List[TechnicalStop]
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class Carrier(Serializable):
     marketing: str
     operating: str
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class Transport(Serializable):
     type: str
     number: str
@@ -142,7 +156,7 @@ class Transport(Serializable):
     carriers: Carrier
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class Segment(Serializable):
     transport: Transport
     route: Route
@@ -163,7 +177,7 @@ class Segment(Serializable):
         )
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class Leg(Serializable):
     segments: List[Segment]
     duration: int = attrib(init=False, default=None)
@@ -226,7 +240,7 @@ class SearchResponseData(Serializable):
         )
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class SearchResponse(Serializable):
     data: List[SearchResponseData]
     error: Optional[str]

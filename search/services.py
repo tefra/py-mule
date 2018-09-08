@@ -1,10 +1,9 @@
 import logging
-import multiprocessing
 import uuid
 from typing import Any
 
-from rx import Observable
-from rx.concurrency import ThreadPoolScheduler
+from rx.concurrency import thread_pool_scheduler as scheduler
+from rx.core import Observable
 
 from search.mappers import SearchResponseMapper, SeeyaSearchRequestMapper
 from search.models import SearchRequest
@@ -12,11 +11,9 @@ from seeya.models import SeeyaSearchRequest, SeeyaSearchResponse
 from seeya.services import Client
 
 logger = logging.getLogger(__name__)
-optimal_thread_count = multiprocessing.cpu_count() + 1
-scheduler = ThreadPoolScheduler(optimal_thread_count)
 
 
-class SearchService(object):
+class SearchService:
     @property
     def providers(self):
         return ["petas", "figame", "kiwi", "travel2be", "travelgenio"]
@@ -30,8 +27,9 @@ class SearchService(object):
             .to_iterable()
         )
 
-    def prepare(self, provider: str, request: SearchRequest) -> Any:
-        request = request.copy(method=provider, transactionId=uuid.uuid4())
+    def prepare(self, provider: str, request: SeeyaSearchRequest) -> Any:
+        request = request.copy(transactionId=uuid.uuid4())
+        request.provider = provider
         return Observable.just(request).subscribe_on(scheduler).map(self.send)
 
     @classmethod

@@ -1,4 +1,4 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta
 from enum import unique, Enum
 from typing import List, Dict, Optional
 
@@ -8,14 +8,14 @@ from mule.converters import xstr
 from mule.models import Serializable, CustomSerialization
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class SeeyaExcludedCarriers(Serializable):
     marketing: List[str] = attrib(factory=list)
     operating: List[str] = attrib(factory=list)
     validating: List[str] = attrib(factory=list)
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class SeeyaLeg(Serializable):
     dep: str
     arr: str
@@ -26,13 +26,13 @@ class SeeyaLeg(Serializable):
     forceIncludedCarriers: list = attrib(factory=list)
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class SeeyaPassenger(Serializable):
     count: int
     type: str
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class SeeyaSearchQuery(Serializable):
     direct: bool
     preferredCarrier: str
@@ -44,37 +44,36 @@ class SeeyaSearchQuery(Serializable):
     maxRecommendations: int = attrib(default=200)
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class SeeyaMetadata(Serializable):
     market: str
     locale: str
 
 
-@attrs(auto_attribs=True, frozen=False)
+@attrs(auto_attribs=True)
 class SeeyaRequest(Serializable, metaclass=ABCMeta):
-    metadata: SeeyaMetadata
+    metadata: SeeyaMetadata = attrib(default=None)
     transactionId: str = attrib(default=None, converter=xstr)
     pcc: str = attrib(default=None)
     method: str = attrib(default=None)
 
     @property
     def provider(self):
-        return "foobar"
+        return None if self.method is None else self.method.split(".")[1]
 
     @provider.setter
     def provider(self, provider: str):
-        self.method = "flights.{}.search".format(provider)
+        self.method = ".".join([self.MODAL, provider, self.ACTION])
 
 
 @attrs(auto_attribs=True)
 class SeeyaSearchRequest(SeeyaRequest):
+    MODAL = "flights"
+    ACTION = "search"
     searchQuery: SeeyaSearchQuery = attrib(default=None)
-    method: str = attrib(
-        default=None, converter=lambda x: "flights.{}.search".format(x)
-    )
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class SeeyaTechnicalStop(Serializable):
     destination: str
     duration: int
@@ -82,13 +81,13 @@ class SeeyaTechnicalStop(Serializable):
     arrDatetime: str
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class SeeyaSegmentPoint(Serializable):
     airport: str
     datetime: str
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class SeeyaSegment(Serializable):
     dep: SeeyaSegmentPoint
     arr: SeeyaSegmentPoint
@@ -100,13 +99,13 @@ class SeeyaSegment(Serializable):
     technicalStop: List[SeeyaTechnicalStop]
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class SeeyaPrice(Serializable):
     currency: str
     amount: float
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class SeeyaFareData(Serializable):
     proposedValidatingCarriers: List[str]
     totalPrice: SeeyaPrice
@@ -115,7 +114,7 @@ class SeeyaFareData(Serializable):
     obFees: Dict[str, float]
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class SeeyaPaxFareData(Serializable):
     lastTicketingDatetime: Optional[str]
     fareBasis: str
@@ -125,7 +124,7 @@ class SeeyaPaxFareData(Serializable):
     cabin: str
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class SeeyaPricePerPaxType(Serializable):
     totalPrice: SeeyaPrice
     baseFare: SeeyaPrice
@@ -140,7 +139,7 @@ class SeeyaPassengerType(Enum):
     infants = "INF"
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class SeeyaSegmentReferences(CustomSerialization):
     data: List[List[str]]
 
@@ -153,7 +152,7 @@ class SeeyaSegmentReferences(CustomSerialization):
         return cls(data=list(map(lambda d: [ref for ref, _ in d], data)))
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class SeeyaRecommendation(Serializable):
     pricePerPaxType: Dict[SeeyaPassengerType, SeeyaPricePerPaxType]
     segRefs: SeeyaSegmentReferences
@@ -162,14 +161,14 @@ class SeeyaRecommendation(Serializable):
     deepLink: str
 
 
-@attrs(frozen=True, auto_attribs=True)
+@attrs(auto_attribs=True)
 class SeeyaSearchResult(Serializable):
     transactionId: str
     groupOfSegments: Dict[str, SeeyaSegment]
     recommendations: List[SeeyaRecommendation]
 
 
-@attrs(frozen=True, auto_attribs=True, slots=True)
+@attrs(auto_attribs=True, slots=True)
 class SeeyaSearchResponse(Serializable):
     transactionId: str
     result: Optional[SeeyaSearchResult]

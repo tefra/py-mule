@@ -50,4 +50,4 @@ class Client:
             with open(res_path, encoding="utf-8", mode="w") as f:
                 f.write(response)
         except Exception as e:
-            logger.exception(str(e))
+            logger.exception(repr(e))

@@ -1,10 +1,9 @@
-import inspect
-from abc import abstractmethod, ABCMeta, abstractclassmethod, abstractproperty
+from abc import ABCMeta, abstractclassmethod
 from json import loads, dumps
 from typing import Dict, TypeVar, Any
 
 import cattr
-from attr import evolve
+from attr import evolve, validate
 from cattr import unstructure, structure
 
 T = TypeVar("T", bound="BaseModel")
@@ -25,6 +24,9 @@ class BaseModel(metaclass=ABCMeta):
 
     def copy(self: T, **kwargs) -> T:
         return evolve(self, **kwargs)
+
+    def validate(self: T):
+        return validate(self)
 
     @classmethod
     def from_json(cls: T, stream) -> T:

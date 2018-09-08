@@ -54,7 +54,7 @@ class SeeyaSearchRequestMapperTestCase(TestCase):
 
         expected = {
             "metadata": {"locale": "en_US", "market": "US"},
-            "method": "flights.None.search",
+            "method": None,
             "pcc": None,
             "searchQuery": {
                 "currency": "USD",
@@ -69,9 +69,6 @@ class SeeyaSearchRequestMapperTestCase(TestCase):
             "transactionId": "",
         }
         self.assertEqual(expected, actual.to_dict())
-
-        actual.provider = "foobar"
-        self.assertEqual("flights.foobar.search", actual.method)
 
     @patch.object(SeeyaSearchRequestMapper, "map_route")
     def test_map_routes(self, map_route):
@@ -156,6 +153,13 @@ class SearchResponseMapperTestCase(TestCase):
 
         expected = {"data": [], "error": "damn"}
         self.assertEqual(expected, actual.to_dict())
+
+    @patch.object(SearchResponseMapper, "map_recommendation")
+    def test_map_recommendations(self, map_recommendation):
+        map_recommendation.side_effect = ["a", "b", "c"]
+        self.assertEqual(
+            ["a", "b", "c"], self.mapper.map_recommendations([1, 2, 3])
+        )
 
     @patch.object(SearchResponseData, "generate_resources")
     @patch.object(SearchResponseData, "generate_group_id")
