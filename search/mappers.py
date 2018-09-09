@@ -1,5 +1,7 @@
 from typing import Dict, List
 
+from attr import attrs, attrib
+
 from search.models import (
     PassengerRequest,
     RouteRequest,
@@ -77,33 +79,31 @@ class SeeyaSearchRequestMapper:
         return SeeyaPassenger(count=value.count, type=value.type.name)
 
 
+@attrs
 class SearchResponseMapper:
+    request: SeeyaSearchRequest = attrib()
+    segments: Dict[str, Segment] = attrib(default=dict())
+
     Passengers = Dict[PassengerType, Passenger]
     SeeyaPassengers = Dict[SeeyaPassengerType, SeeyaPricePerPaxType]
-
     Segments = Dict[str, Segment]
     SeeyaSegments = Dict[str, SeeyaSegment]
-
     Recommendation = SeeyaRecommendation
     Recommendations = List[Recommendation]
     ResponseData = List[SearchResponseData]
-
     SeeyaTechnicalStops = List[SeeyaTechnicalStop]
     TechnicalStops = List[TechnicalStop]
-
     SegRefs = SeeyaSegmentReferences
-
-    def __init__(self) -> None:
-        self.segments: Dict[str, Segment] = dict()
 
     def map(self, value: SeeyaSearchResponse) -> SearchResponse:
         data = []
         error = value.error
+        locale = self.request.metadata.locale
         if error is None:
             self.segments = self.map_segments(value.result.groupOfSegments)
             data = self.map_recommendations(value.result.recommendations)
 
-        return SearchResponse(data=data, error=error)
+        return SearchResponse(data=data, error=error, locale=locale)
 
     def map_recommendations(self, value: Recommendations) -> ResponseData:
         return list(map(lambda x: self.map_recommendation(x), value))

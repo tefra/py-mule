@@ -8,7 +8,7 @@ from search.mappers import SearchResponseMapper, SeeyaSearchRequestMapper
 from search.models import SearchRequest
 from search.services import SearchService
 from seeya.models import SeeyaSearchRequest
-from seeya.services import Client
+from seeya.services import SeeyaClient
 
 on_next = ReactiveTest.on_next
 on_completed = ReactiveTest.on_completed
@@ -57,9 +57,12 @@ class SearchServiceTestCase(TestCase):
         request.provider = "out"
         send.assert_called_once_with(request)
 
+    @patch("search.services.resources.enrich")
     @patch.object(SearchResponseMapper, "map", return_value="mapped_data")
-    @patch.object(Client, "send", return_value="communication")
-    def test_send(self, client_send, mapper):
+    @patch.object(SeeyaClient, "send", return_value="communication")
+    def test_send(self, client_send, mapper, enrich):
         request = Mock(SeeyaSearchRequest)
+        enrich.side_effect = lambda x: x
+
         self.assertEqual(mapper.return_value, SearchService.send(request))
         mapper.assert_called_once_with(client_send.return_value)

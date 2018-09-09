@@ -19,16 +19,16 @@ class ListViewSet(ListModelMixin, GenericViewSet):
 class CountryViewSet(ListViewSet):
     queryset: QuerySet = Country.objects
     serializer_class = CountrySerializer
-    lookup_value_regex = "[a-z]{2}"
+    lookup_value_regex = "[A-Za-z]{2}"
 
 
 class AirportViewSet(ListViewSet):
     queryset: QuerySet = Airport.objects
     serializer_class = AirportSerializer
-    lookup_value_regex = "[a-z]{3}"
+    lookup_value_regex = "[A-Za-z]{3}"
 
 
 class AirlineViewSet(ListViewSet):
     queryset: QuerySet = Airline.objects
     serializer_class = AirlineSerializer
-    lookup_value_regex = "[a-z0-9]{2}"
+    lookup_value_regex = "[A-Za-z0-9]{2}"

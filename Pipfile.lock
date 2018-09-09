@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "6679c34f79886a5d5979941070059248c1414a2a6d1bca70ebbc35551ce679cb"
+            "sha256": "508c9b493e26843b904cadc055f76b234decfe82fba9de7f96b6af12bc170707"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -23,6 +23,14 @@
             ],
             "version": "==18.2.0"
         },
+        "cachetools": {
+            "hashes": [
+                "sha256:90f1d559512fc073483fe573ef5ceb39bf6ad3d39edc98dc55178a2b2b176fa3",
+                "sha256:d1c398969c478d336f767ba02040fa22617333293fb0b8968e79b16028dfee35"
+            ],
+            "index": "pypi",
+            "version": "==2.1.0"
+        },
         "cattrs": {
             "hashes": [
                 "sha256:2232a568e079f30601de63839f4101283cb594c8719f5311bede25f89d0e09b7",
@@ -30,6 +38,20 @@
             ],
             "index": "pypi",
             "version": "==0.9.0"
+        },
+        "certifi": {
+            "hashes": [
+                "sha256:376690d6f16d32f9d1fe8932551d80b23e9d393a8578c5633a2ed39a64861638",
+                "sha256:456048c7e371c089d0a77a5212fb37a2c2dce1e24146e3b7e0261736aaeaa22a"
+            ],
+            "version": "==2018.8.24"
+        },
+        "chardet": {
+            "hashes": [
+                "sha256:84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae",
+                "sha256:fc323ffcaeaed0e0a02bf4d117757b98aed530d9ed4531e3e15460124c106691"
+            ],
+            "version": "==3.0.4"
         },
         "django": {
             "hashes": [
@@ -47,6 +69,13 @@
             "index": "pypi",
             "version": "==3.8.2"
         },
+        "idna": {
+            "hashes": [
+                "sha256:156a6814fb5ac1fc6850fb002e0852d56c0c8d2531923a51032d1b70760e186e",
+                "sha256:684a38a6f903c1d71d6d5fac066b58d7768af4de2b832e426ec79c30daa94a16"
+            ],
+            "version": "==2.7"
+        },
         "python3-gearman": {
             "hashes": [
                 "sha256:3ee44df221587c76ff13f0bebf4923b02b31b1b069ffda07416658be0614865c",
@@ -62,10 +91,26 @@
             ],
             "version": "==2018.5"
         },
+        "requests": {
+            "hashes": [
+                "sha256:63b52e3c866428a224f97cab011de738c36aec0185aa91cfacd418b5d58911d1",
+                "sha256:ec22d826a36ed72a7358ff3fe56cbd4ba69dd7a6718ffd450ff0e9df7a47ce6a"
+            ],
+            "index": "pypi",
+            "version": "==2.19.1"
+        },
         "rx": {
             "editable": "true",
             "git": "https://github.com/ReactiveX/RxPY.git",
             "ref": "6282bb0d2cd01d9c46d0b256f26d02d4e76cb7dd"
+        },
+        "urllib3": {
+            "hashes": [
+                "sha256:a68ac5e15e76e7e5dd2b8f94007233e01effe3e50e8daddf69acfd81cb686baf",
+                "sha256:b5725a0bd4ba422ab0e66e89e030c806576753ea3ee08554382c14e685d117b5"
+            ],
+            "markers": "python_version != '3.1.*' and python_version != '3.2.*' and python_version != '3.0.*' and python_version != '3.3.*' and python_version >= '2.6' and python_version < '4'",
+            "version": "==1.23"
         }
     },
     "develop": {
@@ -169,13 +214,15 @@
                 "sha256:63b52e3c866428a224f97cab011de738c36aec0185aa91cfacd418b5d58911d1",
                 "sha256:ec22d826a36ed72a7358ff3fe56cbd4ba69dd7a6718ffd450ff0e9df7a47ce6a"
             ],
+            "index": "pypi",
             "version": "==2.19.1"
         },
         "toml": {
             "hashes": [
-                "sha256:8e86bd6ce8cc11b9620cb637466453d94f5d57ad86f17e98a98d1f73e3baab2d"
+                "sha256:380178cde50a6a79f9d2cf6f42a62a5174febe5eea4126fe4038785f1d888d42",
+                "sha256:a7901919d3e4f92ffba7ff40a9d697e35bbbc8a8049fe8da742f34c83606d957"
             ],
-            "version": "==0.9.4"
+            "version": "==0.9.6"
         },
         "urllib3": {
             "hashes": [

@@ -5,12 +5,14 @@ from typing import Any
 from rx.concurrency import thread_pool_scheduler as scheduler
 from rx.core import Observable
 
+from search.managers import ResourceManager
 from search.mappers import SearchResponseMapper, SeeyaSearchRequestMapper
-from search.models import SearchRequest
+from search.models import SearchRequest, SearchResponse
 from seeya.models import SeeyaSearchRequest, SeeyaSearchResponse
-from seeya.services import Client
+from seeya.services import SeeyaClient
 
 logger = logging.getLogger(__name__)
+resources = ResourceManager()
 
 
 class SearchService:
@@ -33,6 +35,8 @@ class SearchService:
         return Observable.just(request).subscribe_on(scheduler).map(self.send)
 
     @classmethod
-    def send(cls, request: SeeyaSearchRequest) -> SeeyaSearchResponse:
-        response = Client.send(request, SeeyaSearchResponse)
-        return SearchResponseMapper().map(response)
+    def send(cls, request: SeeyaSearchRequest) -> SearchResponse:
+        result = SeeyaClient.send(request, SeeyaSearchResponse)
+        response = SearchResponseMapper(request).map(result)
+        resources.enrich(response)
+        return response
