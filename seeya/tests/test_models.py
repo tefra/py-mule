@@ -37,3 +37,9 @@ class SeeyaRequestTestCase(TestCase):
         request.provider = "me"
         self.assertEqual("bus.me.wait", request.method)
         self.assertEqual("me", request.provider)
+
+    def test_repr(self):
+        request = SeeyaRequest()
+        expected = "SeeyaRequest(metadata=None, transactionId='', pcc=None, method=None)"
+        # self.assertEqual('foo', repr(request))
+        self.assertEqual(expected, str(request))

@@ -9,7 +9,7 @@ from python3_gearman.errors import ServerUnavailable
 
 from mule.models import Serializable
 from seeya.models import SeeyaRequest
-from seeya.services import Client
+from seeya.services import SeeyaClient
 
 
 @attrs(auto_attribs=True)
@@ -22,8 +22,11 @@ class GearmanJobRequest:
     result: dict
 
 
-class ClientTestCase(TestCase):
-    @patch.object(Client, "log_conversation")
+class SeeyaClientTestCase(TestCase):
+    def setUp(self):
+        self.client = SeeyaClient()
+
+    @patch.object(SeeyaClient, "log_conversation")
     @patch.object(GearmanClient, "shutdown")
     @patch.object(GearmanClient, "submit_job")
     @patch.object(GearmanClient, "__init__", return_value=None)
@@ -33,7 +36,9 @@ class ClientTestCase(TestCase):
         request = SeeyaRequest(transactionId="1234")
 
         expected = SeeyaTestResponse("bar")
-        self.assertEqual(expected, Client.send(request, SeeyaTestResponse))
+        self.assertEqual(
+            expected, self.client.send(request, SeeyaTestResponse)
+        )
 
         client_init.assert_called_once_with(["localhost:4730"])
         submit.assert_called_once_with(
@@ -48,7 +53,7 @@ class ClientTestCase(TestCase):
     def test_send_with_side_effect(self, client_init, submit, shutdown):
         request = SeeyaRequest(transactionId="1234")
         with self.assertRaises(ServerUnavailable):
-            Client.send(request, SeeyaTestResponse)
+            self.client.send(request, SeeyaTestResponse)
 
         client_init.assert_called_once_with(["localhost:4730"])
         shutdown.assert_called_once()
@@ -67,7 +72,7 @@ class ClientTestCase(TestCase):
         res_path = "{}_{}.json".format(filepath, "response")
 
         try:
-            Client.log_conversation(request, response)
+            self.client.log_conversation(request, response)
             with open(req_path, mode="r") as f:
                 self.assertEqual(request.to_json(), f.read())
 
@@ -81,5 +86,6 @@ class ClientTestCase(TestCase):
     @patch("time.time", Mock(side_effect=Exception("time went wrong")))
     @patch("seeya.services.logger.exception")
     def test_log_conversation_logs_errors(self, logger):
-        Client.log_conversation(None, None)
+        self.client.log_conversation(None, None)
+
         logger.assert_called_once_with("Exception('time went wrong',)")

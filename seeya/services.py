@@ -13,7 +13,7 @@ from seeya.models import SeeyaRequest
 logger = logging.getLogger(__name__)
 
 
-class Client:
+class SeeyaClient:
     QUEUE = "seeya_webservice"
 
     @classmethod
@@ -24,7 +24,6 @@ class Client:
             response = client.submit_job(cls.QUEUE, workload, background=False)
             cls.log_conversation(request, response.result)
             return clazz.from_json(response.result)
-
         finally:
             client.shutdown()
 

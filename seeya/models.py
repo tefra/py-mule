@@ -50,7 +50,7 @@ class SeeyaMetadata(Serializable):
     locale: str
 
 
-@attrs(auto_attribs=True)
+@attrs(auto_attribs=True, repr=True)
 class SeeyaRequest(Serializable, metaclass=ABCMeta):
     metadata: SeeyaMetadata = attrib(default=None)
     transactionId: str = attrib(default=None, converter=xstr)

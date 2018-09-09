@@ -24,6 +24,8 @@ from seeya.models import (
     SeeyaPassengerType,
     SeeyaSegmentReferences,
     SeeyaRecommendation,
+    SeeyaSearchRequest,
+    SeeyaMetadata,
 )
 
 
@@ -116,7 +118,9 @@ class SeeyaSearchRequestMapperTestCase(TestCase):
 class SearchResponseMapperTestCase(TestCase):
     def setUp(self):
         self.maxDiff = None
-        self.mapper = SearchResponseMapper()
+        metadata = SeeyaMetadata(locale="en_US", market="US")
+        request = SeeyaSearchRequest(metadata=metadata)
+        self.mapper = SearchResponseMapper(request)
 
     @patch.object(SearchResponseMapper, "map_recommendations")
     @patch.object(SearchResponseMapper, "map_segments")
@@ -136,7 +140,7 @@ class SearchResponseMapperTestCase(TestCase):
             )
         )
 
-        expected = {"data": "foo", "error": None}
+        expected = {"data": "foo", "error": None, "locale": "en_US"}
         self.assertEqual(expected, actual.to_dict())
 
         map_segments.assert_called_once_with("foo")
@@ -151,7 +155,7 @@ class SearchResponseMapperTestCase(TestCase):
             )
         )
 
-        expected = {"data": [], "error": "damn"}
+        expected = {"data": [], "error": "damn", "locale": "en_US"}
         self.assertEqual(expected, actual.to_dict())
 
     @patch.object(SearchResponseMapper, "map_recommendation")

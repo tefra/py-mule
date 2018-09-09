@@ -5,7 +5,7 @@ from typing import List, Dict, Optional
 from attr import attrib, attrs
 
 from mule.models import Serializable
-from search.validators import Regex, Datetime, evaluate
+from search.validators import Regex, Datetime
 
 
 @attrs(auto_attribs=True)
@@ -73,7 +73,7 @@ class ResourceCabinClass(Serializable):
 @attrs(auto_attribs=True)
 class ResourceCarrier(Serializable):
     code: str
-    logo: str
+    logo: Optional[str]
     name: str
 
 
@@ -97,6 +97,14 @@ class Resources(Serializable):
     cabinClasses: Dict[str, ResourceCabinClass]
     locations: Dict[str, ResourceLocation]
     equipments: Dict[str, ResourceEquipment]
+
+    def all(self):
+        return (
+            (ResourceCarrier, self.carriers),
+            (ResourceCabinClass, self.cabinClasses),
+            (ResourceLocation, self.locations),
+            (ResourceEquipment, self.equipments),
+        )
 
 
 @attrs(auto_attribs=True)
@@ -213,7 +221,7 @@ class SearchResponseData(Serializable):
         parts = [s.generate_id() for l in self.legs for s in l.segments]
         return hashlib.md5("".join(parts).encode(encoding="utf-8")).hexdigest()
 
-    def generate_resources(self):
+    def generate_resources(self) -> Resources:
         carriers = dict()
         classes = dict()
         locations = dict()
@@ -243,4 +251,5 @@ class SearchResponseData(Serializable):
 @attrs(auto_attribs=True)
 class SearchResponse(Serializable):
     data: List[SearchResponseData]
+    locale: str
     error: Optional[str]
