@@ -38,7 +38,7 @@ class ResourceManagerTestCase(TestCase):
     @patch.object(ResourceManager, "get")
     @patch.object(ResourceManager, "fetch")
     def test_enrich(self, fetch, get, filter):
-        filter.side_effect = lambda x: x
+        filter.side_effect = lambda _, __, x: x
 
         data = dict(
             carriers=dict.fromkeys(["A3", "LH"]),
@@ -54,11 +54,7 @@ class ResourceManagerTestCase(TestCase):
         fetch.assert_has_calls(
             [
                 call(ResourceCarrier, locale, data.get("carriers").keys()),
-                call(
-                    ResourceCabinClass, locale, data.get("cabinClasses").keys()
-                ),
                 call(ResourceLocation, locale, data.get("locations").keys()),
-                call(ResourceEquipment, locale, data.get("equipments").keys()),
             ]
         )
 
@@ -66,8 +62,6 @@ class ResourceManagerTestCase(TestCase):
             [
                 call(ResourceCarrier, locale, "A3"),
                 call(ResourceCarrier, locale, "LH"),
-                call(ResourceCabinClass, locale, "Y"),
-                call(ResourceCabinClass, locale, "C"),
                 call(ResourceLocation, locale, "ATH"),
                 call(ResourceLocation, locale, "SKG"),
             ]
@@ -85,7 +79,9 @@ class ResourceManagerTestCase(TestCase):
             key = hashkey(self.manager, ResourceCarrier, locale, x)
             self.manager.cache[key] = x
 
-        self.assertEqual(["CY", "FR"], run(["A3", "CY", "LH", "FR"]))
+        codes = ["A3", "CY", "LH", "FR"]
+        self.assertEqual(["CY", "FR"], run(codes))
+        self.assertEqual(["CY", "FR"], run(dict.fromkeys(codes).keys()))
 
     @patch.object(ResourceManager, "fetch", return_value="bar")
     def test_get(self, *args):
