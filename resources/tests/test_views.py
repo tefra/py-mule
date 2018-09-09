@@ -4,26 +4,11 @@ from rest_framework.reverse import reverse
 from rest_framework.viewsets import GenericViewSet
 
 from resources.filters import MultiValueFilter
-from resources.models import Country, Airport, Airline
-from resources.serializers import (
-    CountrySerializer,
-    AirportSerializer,
-    AirlineSerializer,
-)
-from resources.views import CountryViewSet, AirportViewSet, AirlineViewSet
+from resources.models import Airport, Airline
+from resources.serializers import AirportSerializer, AirlineSerializer
+from resources.views import AirportViewSet, AirlineViewSet
 
 mixin_classes = (ListModelMixin, GenericViewSet)
-
-
-class CountryViewSetTestCase(TestCase):
-    def test_properties(self):
-        self.assertTrue(issubclass(CountryViewSet, mixin_classes))
-        self.assertEqual(Country.objects, CountryViewSet.queryset)
-        self.assertEqual(CountrySerializer, CountryViewSet.serializer_class)
-        self.assertEqual("[A-Za-z]{2}", CountryViewSet.lookup_value_regex)
-        self.assertEqual("code", CountryViewSet.lookup_field)
-        self.assertEqual((MultiValueFilter,), CountryViewSet.filter_backends)
-        self.assertEqual("/resources/countries/", reverse("country-list"))
 
 
 class AirportViewSetTestCase(TestCase):

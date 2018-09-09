@@ -54,7 +54,9 @@ class Airport(models.Model):
     code = models.CharField(max_length=3, unique=True)
     name = models.CharField(max_length=256)
     parent_code = models.CharField(max_length=3, db_index=True)
-    country = models.CharField(max_length=2)
+    country = models.ForeignKey(
+        Country, on_delete=None, to_field="code", null=True
+    )
     city = models.CharField(max_length=256)
     longitude = models.CharField(max_length=50)
     latitude = models.CharField(max_length=50)
@@ -66,5 +68,4 @@ class Airport(models.Model):
     def save(self, *args, **kwargs):
         self.code = upper(self.code)
         self.parent_code = upper(self.parent_code)
-        self.country = upper(self.country)
         super().save(*args, **kwargs)

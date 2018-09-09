@@ -1,3 +1,4 @@
+from rest_framework.relations import SlugRelatedField
 from rest_framework.serializers import ModelSerializer
 
 from resources.models import Country, Airline, Airport, Continent
@@ -10,6 +11,8 @@ class CountrySerializer(ModelSerializer):
 
 
 class AirportSerializer(ModelSerializer):
+    country = SlugRelatedField(slug_field="name", read_only=True)
+
     class Meta:
         model = Airport
         fields = "__all__"

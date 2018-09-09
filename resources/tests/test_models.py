@@ -1,4 +1,4 @@
-from collections import OrderedDict
+import json
 
 from django.test import TestCase
 from rest_framework.mixins import ListModelMixin
@@ -34,7 +34,7 @@ class ContinentTestCase(TestCase):
 
 
 class CountryTestCase(TestCase):
-    def test_save_convert_codes_to_uppercase(self):
+    def test_serializer(self):
         Country(
             code="gr",
             iso_code="gre",
@@ -45,21 +45,19 @@ class CountryTestCase(TestCase):
 
         serializer = CountrySerializer(Country.objects.all(), many=True)
         expected = [
-            OrderedDict(
-                [
-                    ("code", "GR"),
-                    ("iso_code", "GRE"),
-                    ("name", "Greece"),
-                    ("continent", "Europe"),
-                    ("dialingCode", "+030"),
-                ]
-            )
+            {
+                "code": "GR",
+                "iso_code": "GRE",
+                "name": "Greece",
+                "continent": "Europe",
+                "dialingCode": "+030",
+            }
         ]
-        self.assertEqual(expected, serializer.data)
+        self.assertJSONEqual(json.dumps(serializer.data), expected)
 
 
 class AirlineTestCase(TestCase):
-    def test_save_convert_codes_to_uppercase(self):
+    def test_serializer(self):
         Airline(
             code="a3",
             name="Aegean",
@@ -70,29 +68,26 @@ class AirlineTestCase(TestCase):
 
         serializer = AirlineSerializer(Airline.objects.all(), many=True)
         expected = [
-            OrderedDict(
-                [
-                    ("id", 1),
-                    ("code", "A3"),
-                    ("name", "Aegean"),
-                    ("lc_name", ""),
-                    ("logo", "a3.gif"),
-                    ("country", "GR"),
-                    ("alliance", "star"),
-                ]
-            )
+            {
+                "id": 1,
+                "code": "A3",
+                "name": "Aegean",
+                "lc_name": "",
+                "logo": "a3.gif",
+                "country": "GR",
+                "alliance": "star",
+            }
         ]
-
-        self.assertEqual(expected, serializer.data)
+        self.assertJSONEqual(json.dumps(serializer.data), expected)
 
 
 class AirportTestCase(TestCase):
-    def test_save_convert_codes_to_uppercase(self):
-        Airport(
+    def setUp(self):
+        self.country = Country(code="GR", name="Greece")
+        self.airport = Airport(
             code="ath",
             name="Eleutherios Venizelos",
             parent_code="nOp",
-            country="gr",
             city="Athens",
             longitude=23.946486,
             latitude=37.93635,
@@ -100,26 +95,27 @@ class AirportTestCase(TestCase):
             bus_station=False,
             active=True,
             timezone="Europe / Athens",
-        ).save()
+        )
 
+    def test_serializer(self):
+        self.country.save()
+        self.airport.country = self.country
+        self.airport.save()
         serializer = AirportSerializer(Airport.objects.all(), many=True)
         expected = [
-            OrderedDict(
-                [
-                    ("id", 1),
-                    ("code", "ATH"),
-                    ("name", "Eleutherios Venizelos"),
-                    ("parent_code", "NOP"),
-                    ("country", "GR"),
-                    ("city", "Athens"),
-                    ("longitude", "23.946486"),
-                    ("latitude", "37.93635"),
-                    ("train_station", False),
-                    ("bus_station", False),
-                    ("active", True),
-                    ("timezone", "Europe / Athens"),
-                ]
-            )
+            {
+                "id": 1,
+                "code": "ATH",
+                "name": "Eleutherios Venizelos",
+                "parent_code": "NOP",
+                "country": "Greece",
+                "city": "Athens",
+                "longitude": "23.946486",
+                "latitude": "37.93635",
+                "train_station": False,
+                "bus_station": False,
+                "active": True,
+                "timezone": "Europe / Athens",
+            }
         ]
-
-        self.assertEqual(expected, serializer.data)
+        self.assertJSONEqual(json.dumps(serializer.data), expected)
