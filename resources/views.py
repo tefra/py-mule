@@ -3,23 +3,13 @@ from rest_framework.mixins import ListModelMixin
 from rest_framework.viewsets import GenericViewSet
 
 from resources.filters import MultiValueFilter
-from resources.models import Country, Airline, Airport
-from resources.serializers import (
-    CountrySerializer,
-    AirlineSerializer,
-    AirportSerializer,
-)
+from resources.models import Airline, Airport
+from resources.serializers import AirlineSerializer, AirportSerializer
 
 
 class ListViewSet(ListModelMixin, GenericViewSet):
     lookup_field = "code"
     filter_backends = (MultiValueFilter,)
-
-
-class CountryViewSet(ListViewSet):
-    queryset: QuerySet = Country.objects
-    serializer_class = CountrySerializer
-    lookup_value_regex = "[A-Za-z]{2}"
 
 
 class AirportViewSet(ListViewSet):
