@@ -18,7 +18,7 @@ class AirportViewSetTestCase(TestCase):
         self.assertEqual(AirportSerializer, AirportViewSet.serializer_class)
         self.assertEqual("[A-Za-z]{3}", AirportViewSet.lookup_value_regex)
         self.assertEqual("code", AirportViewSet.lookup_field)
-        self.assertEqual((MultiValueFilter,), CountryViewSet.filter_backends)
+        self.assertEqual((MultiValueFilter,), AirlineViewSet.filter_backends)
         self.assertEqual("/resources/airports/", reverse("airport-list"))
 
 
@@ -29,5 +29,5 @@ class AirlineViewSetTestCase(TestCase):
         self.assertEqual(AirlineSerializer, AirlineViewSet.serializer_class)
         self.assertEqual("[A-Za-z0-9]{2}", AirlineViewSet.lookup_value_regex)
         self.assertEqual("code", AirlineViewSet.lookup_field)
-        self.assertEqual((MultiValueFilter,), CountryViewSet.filter_backends)
+        self.assertEqual((MultiValueFilter,), AirlineViewSet.filter_backends)
         self.assertEqual("/resources/airlines/", reverse("airline-list"))
